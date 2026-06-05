@@ -17,6 +17,7 @@ public class Tabuleiro {
             System.out.println();
         }
     }
+    // tabuleiro deve definir posicao inicial do jogador, dinossauros, paredes e kits medicos
 
     public int getDimensao(){
         return dimensao;
