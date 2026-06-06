@@ -1,29 +1,25 @@
 import java.util.Random;
 
 public class Personagem {
-
     protected static final Random RANDOM = new Random();
 
-    protected int velocidade;
-    protected int vida;
+    protected char simbolo;
     protected int posicaoX;
     protected int posicaoY;
-    protected int dano;
+    protected int saude;
+    protected int velocidade;
 
-    protected Personagem(Tabuleiro tabuleiro, int vida, int dano, int velocidade) {
-        this.vida = vida;
-        this.posicaoX = RANDOM.nextInt(tabuleiro.getDimensao());
-        this.posicaoY = RANDOM.nextInt(tabuleiro.getDimensao());
-        this.dano = dano;
+    protected Personagem(char simbolo, Tabuleiro tabuleiro, int saude, int velocidade) {
+        this.simbolo = simbolo;
+        this.saude = saude;
         this.velocidade = velocidade;
     }
 
-    public int getVidaRestante(){
-        return this.vida;
+    public int getsaude(){
+        return this.saude;
     }
 
-    public void Movimento(Tabuleiro t, int x, int y, int velocidade) {
-
+    public void Movimento(Tabuleiro t, int x, int y) {
         int possibilidade = RANDOM.nextInt(5);
         switch (possibilidade) {
             case 1:
@@ -53,4 +49,3 @@ public class Personagem {
         }
     }
 }
-

@@ -1,17 +1,19 @@
 import java.util.Scanner;
+import java.util.Random;
 
 public class Jogo {
-
-    private Scanner scanner;
+    public static final Random RANDOM = new Random();
+    private final Jogador jogador;
+    private final Scanner scanner;
+    private final Tabuleiro tabuleiro;
 
     public Jogo(Scanner scanner) {
         this.scanner = scanner;
+        this.tabuleiro = new Tabuleiro(Macros.TAMANHO_TABULEIRO);
+        this.jogador = new Jogador(Macros.SIMB_JOGADOR, tabuleiro, Macros.SAUDE_JOGADOR,
+                                   Macros.VEL_JOGADOR, 0);
     }
-
-    public void jogar() {
-        int opcao = 0;
-
-        Tabuleiro t = new Tabuleiro();
+    public void setDificuldade() {
         System.out.println("Bem vindo, Jogador!");
         System.out.println("Selecione Dificuldade:");
         System.out.println("1- Fácil");
@@ -19,8 +21,15 @@ public class Jogo {
         System.out.println("3- Difícil");
 
         int dificuldade = scanner.nextInt();
+        this.jogador.setPercepcao(4 - dificuldade);
+    }
 
-        Jogador j = new Jogador(t, 5, 1, 4 - dificuldade);
+    public void iniciarJogo() {
+
+        jogador.posicaoX = RANDOM.nextInt(tabuleiro.getDimensao());
+        jogador.posicaoY = RANDOM.nextInt(tabuleiro.getDimensao());
+
+        int opcao = 0;
 
         while (opcao != 2) {
             System.out.println("1- Movimentar");
@@ -30,16 +39,14 @@ public class Jogo {
 
             switch (opcao) {
                 case 1:
-                    t.mostrarTabuleiro();
+                    tabuleiro.mostrarTabuleiro(jogador);
                     break;
                 case 2:
-                    return;
-            }
-
-            // Exemplo:
-            if (j.getVidaRestante() < 1) {
-                return;
+                    break;
             }
         }
+    }
+
+    public void encerrarJogo() {
     }
 }

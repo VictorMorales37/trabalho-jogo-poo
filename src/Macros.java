@@ -1,0 +1,20 @@
+public class Macros {
+    public static final int TAMANHO_TABULEIRO = 20;
+    public static final int SAUDE_JOGADOR = 5;
+    public static final int SAUDE_COMPSOGNATO = 1;
+    public static final int SAUDE_TROODONTE = 2;
+    public static final int SAUDE_VELOCIRAPTOR = 2;
+    public static final int SAUDE_TREX = 3;
+    public static final int VEL_JOGADOR = 1;
+    public static final int VEL_COMPSOGNATO = 1;
+    public static final int VEL_TROODONTE = 1;
+    public static final int VEL_VELOCIRAPTOR = 2;
+    public static final char SIMB_JOGADOR = 'P';
+    public static final char SIMB_COMPSOGNATO = 'C';
+    public static final char SIMB_TROODONTE = 'T';
+    public static final char SIMB_VELOCIRAPTOR = 'V';
+    public static final char SIMB_TREX = 'R';
+    public static final char SIMB_PAREDE = '█';
+    public static final char SIMB_CAIXA = 'X';
+}
+
