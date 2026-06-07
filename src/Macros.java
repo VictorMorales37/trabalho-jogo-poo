@@ -9,6 +9,7 @@ public class Macros {
     public static final int VEL_COMPSOGNATO = 1;
     public static final int VEL_TROODONTE = 1;
     public static final int VEL_VELOCIRAPTOR = 2;
+    public static final int DANO_DARDOS = 2;
     public static final char SIMB_JOGADOR = 'P';
     public static final char SIMB_COMPSOGNATO = 'C';
     public static final char SIMB_TROODONTE = 'T';
