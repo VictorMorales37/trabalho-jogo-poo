@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Personagem {
+public abstract class Dinossauro {
     protected static final Random RANDOM = new Random();
 
     protected char simbolo;
@@ -9,13 +9,13 @@ public class Personagem {
     protected int saude;
     protected int velocidade;
 
-    protected Personagem(char simbolo, Tabuleiro tabuleiro, int saude, int velocidade) {
+    protected Dinossauro(char simbolo, Tabuleiro tabuleiro, int saude, int velocidade) {
         this.simbolo = simbolo;
         this.saude = saude;
         this.velocidade = velocidade;
     }
 
-    public int getsaude(){
+    public int getsaude() {
         return this.saude;
     }
 

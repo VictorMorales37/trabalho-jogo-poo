@@ -1,305 +1,121 @@
-# ✅ Checklist do Projeto — Sobrevivência Jurássica
+## Ordem de Implementação
 
-## 1. Estrutura Geral
+### Fase 1 — Estrutura Base
 
-* [ ] Projeto em Java
-* [ ] Utilizar Programação Orientada a Objetos
-* [ ] Código compila sem erros
-* [ ] Relatório produzido
-* [ ] Apresentação preparada
+* [x] Criar classe `Tabuleiro`
+* [x] Criar classe `Jogador`
+* [x] Criar classe abstrata `Dinossauro`
+* [ ] Criar subclasses:
+
+  * [ ] `Compsognato`
+  * [ ] `Troodonte`
+  * [ ] `Velociraptor`
+  * [ ] `TRex`
+* [ ] Criar classe `CaixaSuprimentos`
+* [ ] Criar classes de itens/armas
 
 ---
 
-# 2. Conceitos de POO Obrigatórios
+### Fase 2 — Geração do Jogo
+
+* [x] Gerar matriz do tabuleiro
+* [x] Posicionar jogador
+* [ ] Gerar paredes aleatórias
+* [ ] Posicionar dinossauros
+* [ ] Posicionar caixas
+* [ ] Garantir que o T-Rex fique no lado oposto ao jogador
+
+---
+
+### Fase 3 — Menu Inicial
+
+* [x] Tela de boas-vindas
+* [x] Escolha de dificuldade
+* [x] Definir percepção do jogador
+* [x] Iniciar jogo
+
+---
+
+### Fase 4 — Movimentação
+
+* [ ] Movimento horizontal
+* [ ] Movimento vertical
+* [ ] Impedir movimento em paredes
+* [ ] Impedir movimento diagonal
+
+---
+
+### Fase 5 — Combate
+
+* [ ] Ataque com mãos
+* [ ] Ataque com bastão elétrico
+* [ ] Ataque com dardos
+* [ ] Sistema de dano
+* [ ] Sistema de esquiva
+* [ ] Sistema de fuga
+* [ ] Regras especiais (Velociraptor e T-Rex)
+
+---
+
+### Fase 6 — Caixas e Itens
+
+* [ ] Kit médico
+* [ ] Bastão elétrico
+* [ ] Arma de dardos
+* [ ] Munição
+* [ ] Compsognato surpresa
+
+---
+
+### Fase 7 — Movimento dos Dinossauros
+
+* [ ] Movimento aleatório dos inimigos
+* [ ] Velociraptor move 2 casas
+* [ ] T-Rex imóvel
+* [ ] Combate quando encontram o jogador
+
+---
+
+### Fase 8 — Visão do Jogador
+
+* [ ] Implementar linha de visão
+* [ ] Mostrar apenas o que o jogador pode enxergar
+* [ ] Implementar modo DEBUG
+
+---
+
+### Fase 9 — Menus do Jogo
+
+* [ ] Cura
+* [ ] DEBUG
+* [ ] Sair
+* [ ] Reiniciar jogo
+* [ ] Novo jogo
+
+---
+
+### Fase 10 — Finalização
+
+* [ ] Verificar condição de vitória
+* [ ] Verificar condição de derrota
+* [ ] Testar todos os casos
+
+---
+
+### Fase 11 — Requisitos de POO
 
 * [ ] Encapsulamento
 * [ ] Herança
 * [ ] Polimorfismo
 * [ ] Composição
-* [ ] Classes próprias modeladas pelo grupo
-* [ ] Uso de Interface (`interface` do Java)
-
-Exemplos possíveis:
-
-* [ ] Classe abstrata `Dinossauro`
-* [ ] Classes `Compsognato`, `Troodonte`, `Velociraptor`, `TRex`
-* [ ] Interface `Movimentavel`
-* [ ] Classe `Jogador`
-* [ ] Classe `Tabuleiro`
-* [ ] Classe `CaixaSuprimentos`
-* [ ] Classe `Arma`
+* [ ] Interface (`interface`)
 
 ---
 
-# 3. Menu Inicial
-
-* [ ] Mensagem de boas-vindas
-* [ ] Opção Jogar
-* [ ] Opção Sair
-
-### Dificuldades
-
-* [ ] Fácil → percepção 3
-* [ ] Médio → percepção 2
-* [ ] Difícil → percepção 1
-
-
-
----
-
-# 4. Geração do Mapa
-
-* [ ] Matriz quadrada
-* [ ] Tamanho definido (20x20, 40x40, etc.)
-* [ ] Paredes geradas aleatoriamente
-* [ ] Jogador posicionado
-
-Distribuição obrigatória:
-
-* [ ] 2 Compsognatos
-
-* [ ] 5 Troodontes
-
-* [ ] 2 Velociraptors
-
-* [ ] 1 Tiranossauro Rex
-
-* [ ] 4 Caixas de suprimentos
-
-* [ ] T-Rex colocado no lado oposto ao jogador
----
-
-# 5. Jogador
-
-Atributos:
-
-* [ ] Saúde
-* [ ] Percepção
-
-Funcionalidades:
-
-* [ ] Movimentação horizontal
-* [ ] Movimentação vertical
-* [ ] Não mover diagonalmente
-
-
-
----
-
-# 6. Sistema de Visão
-
-* [ ] Mostrar apenas linha de visão do jogador
-* [ ] Visão horizontal
-* [ ] Visão vertical
-* [ ] Visão interrompida por:
-
-    * [ ] Parede
-    * [ ] Caixa
-    * [ ] Dinossauro
-
-
-
----
-
-# 7. Caixas de Suprimentos
-
-Existem 4 caixas:
-
-* [ ] 1 Kit Médico
-* [ ] 1 Bastão Elétrico
-* [ ] 2 Armas de Dardos
-
-Além disso:
-
-* [ ] Um Compsognato surpresa escondido
-
-Regras:
-
-* [ ] Kit médico recupera vida
-* [ ] Bastão substitui ataque desarmado
-* [ ] Dardos adicionam munição caso arma já exista
-* [ ] Teste de percepção contra Compsognato surpresa
-
-
-
----
-
-# 8. Dinossauros
-
-## Compsognato
-
-* [ ] Vida 1
-
-## Troodonte
-
-* [ ] Vida 2
-
-## Velociraptor
-
-* [ ] Vida 2
-* [ ] Move 2 casas
-
-## Tiranossauro Rex
-
-* [ ] Vida 3
-* [ ] Não se move
-
-
-
----
-
-# 9. Sistema de Combate
-
-Antes do combate:
-
-* [ ] Escolher ataque
-
-Tipos:
-
-### Ataque com as mãos
-
-* [ ] Dado de 6 lados
-* [ ] Resultado 6 → dano 2
-* [ ] Resultado 1 ou 2 → dano 0
-* [ ] Resultado 3,4,5 → dano 1
-
-### Bastão Elétrico
-
-* [ ] Dado de 6 lados
-* [ ] Resultado 6 → dano 2
-* [ ] Resultado 1 → dano 0
-* [ ] Resultado 2-5 → dano 1
-
-### Arma de Dardos
-
-* [ ] Consome munição
-* [ ] Sempre causa dano 2
-
-
-
----
-
-# 10. Regras Especiais de Combate
-
-* [ ] Velociraptor não pode ser derrotado com dardos
-* [ ] T-Rex não recebe dano sem arma
-* [ ] Jogador pode fugir
-* [ ] Fuga para casa adjacente sem inimigo
-
-
-
----
-
-# 11. Esquiva
-
-Após sobreviver ao ataque:
-
-* [ ] Jogador lança dado de 3 lados
-* [ ] Resultado ≤ percepção → esquiva
-* [ ] Resultado > percepção → perde vida
-
-
-
----
-
-# 12. Movimento dos Dinossauros
-
-Após cada jogada:
-
-* [ ] Todos os dinossauros se movem
-* [ ] T-Rex não se move
-* [ ] Movimento aleatório
-
-Velociraptor:
-
-* [ ] Move até 2 casas
-
-Regras:
-
-* [ ] Não ocupar mesma posição de outro dinossauro
-* [ ] Se encontrar jogador → combate
-
-
-
----
-
-# 13. Menu Durante o Jogo
-
-* [ ] Movimentar
-* [ ] Cura
-* [ ] DEBUG
-* [ ] Sair
-
-DEBUG:
-
-* [ ] Revela todo o mapa
-
-
-
----
-
-# 14. Fim de Jogo
-
-Vitória:
-
-* [ ] Todos os dinossauros derrotados
-
-Derrota:
-
-* [ ] Vida do jogador chega a 0
-
-Ao terminar:
-
-* [ ] Mostrar resultado
-* [ ] Opção Novo Jogo
-* [ ] Opção Reiniciar Jogo
-
-
-
----
-
-# 15. Funcionalidades Extras (Opcional)
-
-* [ ] Threads para movimentação
-* [ ] Comportamentos diferentes para cada dinossauro
-* [ ] Salvamento em arquivo
-* [ ] Tratamento de exceções
-* [ ] Padrão de projeto
-
-
-
----
-
-# 16. Relatório
-
-* [ ] Capa
-* [ ] Sumário
-* [ ] Introdução
-* [ ] Diagrama de Classes
-* [ ] Explicação dos conceitos de POO utilizados
-* [ ] Passos para compilar e executar
-* [ ] Capturas de tela do jogo
-* [ ] Dificuldades encontradas
-* [ ] Sugestões para próximos semestres
+### Fase 12 — Relatório
+
+* [ ] Diagrama de classes
+* [ ] Explicar conceitos de POO utilizados
+* [ ] Instruções para executar
+* [ ] Prints do jogo
 * [ ] Conclusão
-
-
-
----
-
-# Prioridade Recomendada
-
-1. [ ] Modelar classes
-2. [ ] Criar tabuleiro
-3. [ ] Gerar mapa aleatório
-4. [ ] Implementar jogador
-5. [ ] Implementar dinossauros
-6. [ ] Implementar combate
-7. [ ] Implementar caixas
-8. [ ] Implementar movimentação dos inimigos
-9. [ ] Implementar visão do jogador
-10. [ ] Implementar menus
-11. [ ] Fazer relatório
-12. [ ] Refatorar e testar tudo
-
-Essa ordem costuma evitar retrabalho e facilita aplicar herança, composição e polimorfismo desde o início.

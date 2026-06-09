@@ -10,9 +10,34 @@ public class Jogo {
     public Jogo(Scanner scanner) {
         this.scanner = scanner;
         this.tabuleiro = new Tabuleiro(Macros.TAMANHO_TABULEIRO);
-        this.jogador = new Jogador(Macros.SIMB_JOGADOR, tabuleiro, Macros.SAUDE_JOGADOR,
+        this.jogador = new Jogador(tabuleiro, Macros.SIMB_JOGADOR, Macros.SAUDE_JOGADOR,
                                    Macros.VEL_JOGADOR, 0);
     }
+    public void moverJogador() {
+
+        int choice = 0;
+        System.out.println("1 - ^");
+        System.out.println("2 - <");
+        System.out.println("3 - >");
+        System.out.println("4 - v");
+
+        choice = scanner.nextInt();
+        switch (choice) {
+            case 1:
+                jogador.setPosicaoY(jogador.getPosicaoY() + 1);
+                break;
+            case 2:
+                jogador.setPosicaoX(jogador.getPosicaoX() - 1);
+                break;
+            case 3:
+                jogador.setPosicaoX(jogador.getPosicaoX() + 1);
+                break;
+            case 4:
+                jogador.setPosicaoY(jogador.getPosicaoY() - 1);
+                break;
+        }
+    }
+
     public void setDificuldade() {
         System.out.println("Bem vindo, Jogador!");
         System.out.println("Selecione Dificuldade:");
@@ -26,8 +51,8 @@ public class Jogo {
 
     public void iniciarJogo() {
 
-        jogador.posicaoX = RANDOM.nextInt(tabuleiro.getDimensao());
-        jogador.posicaoY = RANDOM.nextInt(tabuleiro.getDimensao());
+        jogador.setPosicaoX(RANDOM.nextInt(tabuleiro.getDimensao()));
+        jogador.setPosicaoY(RANDOM.nextInt(tabuleiro.getDimensao()));
 
         int opcao = 0;
 
@@ -39,6 +64,7 @@ public class Jogo {
 
             switch (opcao) {
                 case 1:
+                    moverJogador();
                     tabuleiro.mostrarTabuleiro(jogador);
                     break;
                 case 2:
