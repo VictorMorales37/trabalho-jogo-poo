@@ -15,11 +15,7 @@ public abstract class Dinossauro {
         this.velocidade = velocidade;
     }
 
-    public int getsaude() {
-        return this.saude;
-    }
-
-    public void Movimento(Tabuleiro t, int x, int y) {
+    public void mover(Tabuleiro t, int x, int y) {
         int possibilidade = RANDOM.nextInt(5);
         switch (possibilidade) {
             case 1:
@@ -47,5 +43,9 @@ public abstract class Dinossauro {
                 }
                 else possibilidade = 1;
         }
+    }
+
+    public int getsaude() {
+        return this.saude;
     }
 }

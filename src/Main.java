@@ -6,11 +6,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         Jogo jogo = new Jogo(scanner);
-
-        jogo.setDificuldade();
         jogo.iniciarJogo();
-        jogo.encerrarJogo();
-
         scanner.close();
     }
 }

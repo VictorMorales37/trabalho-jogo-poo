@@ -11,34 +11,10 @@ public class Jogo {
         this.scanner = scanner;
         this.tabuleiro = new Tabuleiro(Macros.TAMANHO_TABULEIRO);
         this.jogador = new Jogador(tabuleiro, Macros.SIMB_JOGADOR, Macros.SAUDE_JOGADOR,
-                                   Macros.VEL_JOGADOR, 0);
-    }
-    public void moverJogador() {
-
-        int choice = 0;
-        System.out.println("1 - ^");
-        System.out.println("2 - <");
-        System.out.println("3 - >");
-        System.out.println("4 - v");
-
-        choice = scanner.nextInt();
-        switch (choice) {
-            case 1:
-                jogador.setPosicaoY(jogador.getPosicaoY() + 1);
-                break;
-            case 2:
-                jogador.setPosicaoX(jogador.getPosicaoX() - 1);
-                break;
-            case 3:
-                jogador.setPosicaoX(jogador.getPosicaoX() + 1);
-                break;
-            case 4:
-                jogador.setPosicaoY(jogador.getPosicaoY() - 1);
-                break;
-        }
+        Macros.VEL_JOGADOR, 0);
     }
 
-    public void setDificuldade() {
+    private void setDificuldade() {
         System.out.println("Bem vindo, Jogador!");
         System.out.println("Selecione Dificuldade:");
         System.out.println("1- Fácil");
@@ -46,25 +22,29 @@ public class Jogo {
         System.out.println("3- Difícil");
 
         int dificuldade = scanner.nextInt();
-        this.jogador.setPercepcao(4 - dificuldade);
+        jogador.setPercepcao(4 - dificuldade);
     }
 
     public void iniciarJogo() {
 
+        setDificuldade();
         jogador.setPosicaoX(RANDOM.nextInt(tabuleiro.getDimensao()));
         jogador.setPosicaoY(RANDOM.nextInt(tabuleiro.getDimensao()));
+        loopJogo();
+    }
+
+    private void loopJogo() {
 
         int opcao = 0;
-
         while (opcao != 2) {
             System.out.println("1- Movimentar");
             System.out.println("2- Sair");
 
             opcao = scanner.nextInt();
-
             switch (opcao) {
                 case 1:
-                    moverJogador();
+                    tabuleiro.mostrarTabuleiro(jogador);
+                    jogador.mover(scanner);
                     tabuleiro.mostrarTabuleiro(jogador);
                     break;
                 case 2:
@@ -73,6 +53,4 @@ public class Jogo {
         }
     }
 
-    public void encerrarJogo() {
-    }
 }
