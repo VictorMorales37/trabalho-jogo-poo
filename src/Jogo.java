@@ -3,25 +3,26 @@ import java.util.Random;
 
 public class Jogo {
     public static final Random RANDOM = new Random();
+    private final SistemaMovimento sistemaMovimento;
+    private final SistemaCombate sistemaCombate;
     private final Jogador jogador;
     private final Scanner scanner;
     private final Tabuleiro tabuleiro;
+    private final Menu menu;
 
     public Jogo(Scanner scanner) {
         this.scanner = scanner;
-        this.tabuleiro = new Tabuleiro(Macros.TAMANHO_TABULEIRO);
-        this.jogador = new Jogador(tabuleiro, Macros.SIMB_JOGADOR, Macros.SAUDE_JOGADOR,
-        Macros.VEL_JOGADOR, 0);
+        menu = new Menu();
+        tabuleiro = new Tabuleiro(Macros.TAMANHO_TABULEIRO);
+        jogador = new Jogador(Macros.SIMB_JOGADOR, Macros.SAUDE_JOGADOR,
+        Macros.VEL_JOGADOR, Macros.PERCEPCAO_INICIAL);
+        sistemaMovimento = new SistemaMovimento();
+        sistemaCombate = new SistemaCombate();
     }
 
     private void setDificuldade() {
-        System.out.println("Bem vindo, Jogador!");
-        System.out.println("Selecione Dificuldade:");
-        System.out.println("1- Fácil");
-        System.out.println("2- Médio");
-        System.out.println("3- Difícil");
-
         int dificuldade = scanner.nextInt();
+        menu.escolherDificuldade();
         jogador.setPercepcao(4 - dificuldade);
     }
 
@@ -37,15 +38,14 @@ public class Jogo {
 
         int opcao = 0;
         while (opcao != 2) {
-            System.out.println("1- Movimentar");
-            System.out.println("2- Sair");
-
+            menu.opcoes();
             opcao = scanner.nextInt();
             switch (opcao) {
                 case 1:
-                    tabuleiro.mostrarTabuleiro(jogador);
-                    jogador.mover(scanner);
-                    tabuleiro.mostrarTabuleiro(jogador);
+                    menu.mostrarTabuleiro(tabuleiro, jogador);
+                    sistemaMovimento.moverJogador(jogador, scanner);
+                    menu.mostrarTabuleiro(tabuleiro, jogador);
+
                     break;
                 case 2:
                     break;
