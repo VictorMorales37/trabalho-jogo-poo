@@ -31,27 +31,21 @@ public class Jogador {
     public void setTemBastao() {
         temBastao = true;
     }
-
     public void setSaude(int saude) {
         this.saude = saude;
     }
-
     public void setArmaDardos(int armaDardos) {
         this.armaDardos += armaDardos;
     }
-
     public void setKitsMedicos(int kitsMedicos) {
         this.kitsMedicos = kitsMedicos;
     }
-
     public int getKitsMedicos() {
         return kitsMedicos;
     }
-
     public int getArmaDardos() {
         return armaDardos;
     }
-
     public boolean getTemBastao() {
         return temBastao;
     }

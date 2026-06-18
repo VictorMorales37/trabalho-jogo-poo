@@ -6,7 +6,6 @@
 * [x] Criar classe `Jogador`
 * [x] Criar classe abstrata `Dinossauro`
 * [ ] Criar subclasses:
-
   * [ ] `Compsognato`
   * [ ] `Troodonte`
   * [ ] `Velociraptor`
@@ -38,8 +37,8 @@
 
 ### Fase 4 — Movimentação
 
-* [ ] Movimento horizontal
-* [ ] Movimento vertical
+* [x] Movimento horizontal
+* [x] Movimento vertical
 * [ ] Impedir movimento em paredes
 * [ ] Impedir movimento diagonal
 

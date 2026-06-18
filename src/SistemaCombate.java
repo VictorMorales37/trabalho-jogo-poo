@@ -1,11 +1,8 @@
 import java.util.Random;
 
 public class SistemaCombate {
-
     private static final Random RANDOM = new Random();
-
     // ----------------------------- ataque -----------------------------
-
     public int atacarMao(){
         int acerto = RANDOM.nextInt(6) + 1;
 
@@ -19,7 +16,6 @@ public class SistemaCombate {
             return 1;
         }
     }
-
     public int atacarBastao(Jogador j) {
         if (j.getTemBastao()){
             int acerto = RANDOM.nextInt(6) + 1;
@@ -47,9 +43,7 @@ public class SistemaCombate {
             return 0;
         }
     }
-
     // ----------------------------- cura -----------------------------
-
     public void acharKitsMedicos(Jogador j) {
         j.setKitsMedicos(j.getKitsMedicos() + 1);
     }
