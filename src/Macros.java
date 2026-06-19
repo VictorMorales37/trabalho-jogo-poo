@@ -1,5 +1,5 @@
 public class Macros {
-    public static final int TAMANHO_TABULEIRO = 5;
+    public static final int TAMANHO_TABULEIRO = 10;
     public static final int SAUDE_JOGADOR = 5;
     public static final int SAUDE_COMPSOGNATO = 1;
     public static final int SAUDE_TROODONTE = 2;
