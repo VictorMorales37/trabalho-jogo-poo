@@ -15,7 +15,7 @@ public class Jogo {
         tabuleiro = new Tabuleiro(Macros.TAMANHO_TABULEIRO);
         jogador = new Jogador(Macros.SIMB_JOGADOR, Macros.SAUDE_JOGADOR,
         Macros.VEL_JOGADOR, Macros.PERCEPCAO_INICIAL);
-        sistemaMovimento = new SistemaMovimento();
+        sistemaMovimento = new SistemaMovimento(tabuleiro.getGrid());
     }
     private void setDificuldade() {
         int dificuldade = scanner.nextInt();
