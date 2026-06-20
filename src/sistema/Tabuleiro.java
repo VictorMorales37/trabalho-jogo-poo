@@ -1,4 +1,7 @@
-import java.util.Random;
+package sistema;
+
+import entidades.Jogador;
+import util.Macros;
 
 public class Tabuleiro {
     private final int dimensao;

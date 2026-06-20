@@ -1,3 +1,11 @@
+package sistema;
+
+import entidades.Jogador;
+import input.LeitorDeInput;
+import movimentacao.ResultadoMovimento;
+import movimentacao.SistemaMovimento;
+import util.Macros;
+
 import java.util.Scanner;
 import java.util.Random;
 
@@ -34,11 +42,13 @@ public class Jogo {
             menu.opcoes();
             opcao = scanner.nextInt();
             switch (opcao) {
-                case 1:
+                case 1: // movimentar jogador
                     tabuleiro.atualizar(jogador);
                     menu.mostrarTabuleiro(tabuleiro, jogador);
                     menu.opcoesMovimento();
-                    sistemaMovimento.moverJogador(jogador, scanner);
+                    LeitorDeInput leitor = new LeitorDeInput(scanner);
+                    ResultadoMovimento resMovimento = sistemaMovimento.moverJogador(jogador,leitor.lerInput());
+                    menu.avisoMovimento(resMovimento);
                     tabuleiro.atualizar(jogador);
                     menu.mostrarTabuleiro(tabuleiro, jogador);
                     break;

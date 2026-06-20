@@ -1,3 +1,6 @@
+package entidades;
+import sistema.Tabuleiro;
+
 import java.util.Random;
 
 public abstract class Dinossauro {

@@ -2,9 +2,9 @@
 
 ### Fase 1 — Estrutura Base
 
-* [x] Criar classe `Tabuleiro`
-* [x] Criar classe `Jogador`
-* [x] Criar classe abstrata `Dinossauro`
+* [x] Criar classe `sistema.Tabuleiro`
+* [x] Criar classe `entidades.Jogador`
+* [x] Criar classe abstrata `entidades.Dinossauro`
 * [ ] Criar subclasses:
   * [ ] `Compsognato`
   * [ ] `Troodonte`
@@ -15,7 +15,7 @@
 
 ---
 
-### Fase 2 — Geração do Jogo
+### Fase 2 — Geração do sistema.Jogo
 
 * [x] Gerar matriz do tabuleiro
 * [x] Posicionar jogador
@@ -26,7 +26,7 @@
 
 ---
 
-### Fase 3 — Menu Inicial
+### Fase 3 — sistema.Menu Inicial
 
 * [x] Tela de boas-vindas
 * [x] Escolha de dificuldade
@@ -75,7 +75,7 @@
 
 ---
 
-### Fase 8 — Visão do Jogador
+### Fase 8 — Visão do entidades.Jogador
 
 * [ ] Implementar linha de visão
 * [ ] Mostrar apenas o que o jogador pode enxergar
@@ -83,7 +83,7 @@
 
 ---
 
-### Fase 9 — Menus do Jogo
+### Fase 9 — Menus do sistema.Jogo
 
 * [ ] Cura
 * [ ] DEBUG

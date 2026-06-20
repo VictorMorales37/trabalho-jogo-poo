@@ -1,3 +1,8 @@
+package sistema;
+
+import entidades.Jogador;
+import util.Macros;
+
 import java.util.Random;
 
 public class SistemaCombate {
