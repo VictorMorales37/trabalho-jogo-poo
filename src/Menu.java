@@ -1,5 +1,5 @@
 public class Menu {
-    public void opcoes() {
+    public void menuPrincipal() {
         System.out.println("1- Movimentar");
         System.out.println("2- Sair");
     }
@@ -23,6 +23,7 @@ public class Menu {
         System.out.println("2 - <");
         System.out.println("3 - >");
         System.out.println("4 - v");
+        System.out.println("5 - Voltar");
     }
     public void avisoMovimento() {
         System.out.println("Movimento não permitido");

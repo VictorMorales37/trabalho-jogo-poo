@@ -8,9 +8,10 @@ public class Jogo {
     private final Tabuleiro tabuleiro;
     private final Jogador jogador;
     private final SistemaMovimento sistemaMovimento;
+    private int input;
 
-    public Jogo(Scanner scanner) {
-        this.scanner = scanner;
+    public Jogo() {
+        scanner = new Scanner(System.in);
         menu = new Menu();
         tabuleiro = new Tabuleiro(Macros.TAMANHO_TABULEIRO);
         jogador = new Jogador(Macros.SIMB_JOGADOR, Macros.SAUDE_JOGADOR,
@@ -22,6 +23,7 @@ public class Jogo {
         jogador.setPercepcao(4 - dificuldade);
     }
     public void iniciarJogo() {
+        input = 0;
         menu.escolherDificuldade();
         setDificuldade();
         jogador.setPosicaoX(RANDOM.nextInt(tabuleiro.getDimensao()));
@@ -29,18 +31,18 @@ public class Jogo {
         loopJogo();
     }
     private void loopJogo() {
-        int opcao = 0;
-        while (opcao != 2) {
-            menu.opcoes();
-            opcao = scanner.nextInt();
-            switch (opcao) {
+        while (input != 2) {
+            menu.menuPrincipal(); // 1 - mover personagem | 2 - sair do jogo
+            input = scanner.nextInt();
+            switch (input) {
                 case 1:
-                    tabuleiro.atualizar(jogador);
-                    menu.mostrarTabuleiro(tabuleiro, jogador);
-                    menu.opcoesMovimento();
-                    sistemaMovimento.moverJogador(jogador, scanner);
-                    tabuleiro.atualizar(jogador);
-                    menu.mostrarTabuleiro(tabuleiro, jogador);
+                    while (input != 5) {
+                        tabuleiro.atualizar(jogador);
+                        menu.mostrarTabuleiro(tabuleiro, jogador);
+                        menu.opcoesMovimento(); // 1, 2, 3, 4 - direções | 5 - voltar
+                        input = scanner.nextInt();
+                        sistemaMovimento.moverJogador(jogador, input);
+                    }
                     break;
                 case 2:
                     break;

@@ -1,17 +1,11 @@
-import java.util.Scanner;
-
 public class SistemaMovimento {
-    int choice;
     char[][] grid;
 
     public SistemaMovimento(char[][] grid) {
         this.grid = grid;
     }
-
-    public void moverJogador(Jogador j, Scanner s) {
-        choice = 0;
-        choice = s.nextInt();
-        switch (choice) { // y = colunas      x = linhas
+    public void moverJogador(Jogador j, int input) {
+        switch (input) { // y = colunas      x = linhas
             case 1:
                 if (movimentoValido(j.getPosicaoX() - 1, j.getPosicaoY()) == 0) {
                     j.setPosicaoX(j.getPosicaoX() - 1); // ^
@@ -34,8 +28,7 @@ public class SistemaMovimento {
                 break;
         }
     }
-
-    public int movimentoValido(int x, int y){
+    private int movimentoValido(int x, int y){
         // adicionar colisão com as paredes
         // retorna 0 se o movimento é valido
         // retorna 1 se o movimenta para fora do mapa ou bater em parede
@@ -69,8 +62,5 @@ public class SistemaMovimento {
         else {
             return 0;
         }
-
     }
-
-
 }
