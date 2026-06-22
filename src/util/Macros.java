@@ -1,3 +1,5 @@
+package util;
+
 public class Macros {
     public static final int TAMANHO_TABULEIRO = 10;
     public static final int SAUDE_JOGADOR = 5;

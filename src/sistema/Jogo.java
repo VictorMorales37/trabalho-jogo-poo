@@ -1,3 +1,7 @@
+package sistema;
+import entidades.*;
+import sistema.movimentacao.*;
+import util.*;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -8,7 +12,7 @@ public class Jogo {
     private final Tabuleiro tabuleiro;
     private final Jogador jogador;
     private final SistemaMovimento sistemaMovimento;
-    private int input;
+    private final LeitorDeInput leitorDeInput;
 
     public Jogo() {
         scanner = new Scanner(System.in);
@@ -17,13 +21,13 @@ public class Jogo {
         jogador = new Jogador(Macros.SIMB_JOGADOR, Macros.SAUDE_JOGADOR,
         Macros.VEL_JOGADOR, Macros.PERCEPCAO_INICIAL);
         sistemaMovimento = new SistemaMovimento(tabuleiro.getGrid());
+        leitorDeInput = new LeitorDeInput(scanner);
     }
     private void setDificuldade() {
         int dificuldade = scanner.nextInt();
         jogador.setPercepcao(4 - dificuldade);
     }
     public void iniciarJogo() {
-        input = 0;
         menu.escolherDificuldade();
         setDificuldade();
         jogador.setPosicaoX(RANDOM.nextInt(tabuleiro.getDimensao()));
@@ -31,17 +35,25 @@ public class Jogo {
         loopJogo();
     }
     private void loopJogo() {
-        while (input != 2) {
+
+        while (leitorDeInput.input != 2) { // MENU PRINCIPAL
+
             menu.menuPrincipal(); // 1 - mover personagem | 2 - sair do jogo
-            input = scanner.nextInt();
-            switch (input) {
-                case 1:
-                    while (input != 5) {
-                        tabuleiro.atualizar(jogador);
+            leitorDeInput.input = leitorDeInput.lerInput();
+
+            switch (leitorDeInput.input) {
+
+                case 1: // MENU DE MOVIMENTO
+                    while (leitorDeInput.input != 5) {
+
                         menu.mostrarTabuleiro(tabuleiro, jogador);
                         menu.opcoesMovimento(); // 1, 2, 3, 4 - direções | 5 - voltar
-                        input = scanner.nextInt();
-                        sistemaMovimento.moverJogador(jogador, input);
+
+                        leitorDeInput.input = leitorDeInput.lerInput();
+                        Direcao direcao = leitorDeInput.lerDirecao(leitorDeInput.input);
+                        sistemaMovimento.moverJogador(jogador, direcao);
+
+                        tabuleiro.atualizar(jogador);
                     }
                     break;
                 case 2:

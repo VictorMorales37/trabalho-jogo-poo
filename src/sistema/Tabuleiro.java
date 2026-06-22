@@ -1,4 +1,6 @@
-import java.util.Random;
+package sistema;
+import entidades.Jogador;
+import util.Macros;
 
 public class Tabuleiro {
     private final int dimensao;
@@ -8,15 +10,15 @@ public class Tabuleiro {
         this.dimensao = dimensao;
         grid = new char[dimensao][dimensao];
     }
+
     public char[][] getGrid() {
         return grid;
     }
-    public void setGrid(int x, int y, char s) {
-        grid[x][y] = s;
-    }
+
     public int getDimensao() {
         return dimensao;
     }
+
     public void atualizar(Jogador j) {
         for (int x = 0; x < dimensao; x++) {
             for (int y = 0; y < dimensao; y++) {

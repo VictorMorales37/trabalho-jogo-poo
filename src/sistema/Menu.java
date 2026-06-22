@@ -1,3 +1,7 @@
+package sistema;
+import sistema.movimentacao.ResultadoMovimento;
+import entidades.Jogador;
+
 public class Menu {
     public void menuPrincipal() {
         System.out.println("1- Movimentar");
@@ -25,7 +29,21 @@ public class Menu {
         System.out.println("4 - v");
         System.out.println("5 - Voltar");
     }
-    public void avisoMovimento() {
-        System.out.println("Movimento não permitido");
+    public void avisoMovimento(ResultadoMovimento resultado) {
+        if ( resultado == ResultadoMovimento.BLOQUEADO){
+            System.out.println("Movimento não permitido");
+        }
+        else if (resultado == ResultadoMovimento.ENCONTROU_COMPSOGNATO){
+            System.out.println("Encontrou compsognato!");
+        }
+        else if (resultado == ResultadoMovimento.ENCONTROU_TROODONTE){
+            System.out.println("Encontrou troodonte!");
+        }
+        else if (resultado == ResultadoMovimento.ENCONTROU_VELOCIRAPTOR){
+            System.out.println("Encontrou velociraptor!");
+        }
+        else if (resultado == ResultadoMovimento.ENCONTROU_TREX){
+            System.out.println("Encontrou Tiranossauro Rex!");
+        }
     }
 }

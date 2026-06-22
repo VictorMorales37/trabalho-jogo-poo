@@ -1,7 +1,6 @@
-public class Main {
-    public static void main(String[] args) {
+import sistema.Jogo;
 
-        Jogo jogo = new Jogo();
-        jogo.iniciarJogo();
-    }
+void main() {
+    Jogo jogo = new Jogo();
+    jogo.iniciarJogo();
 }
