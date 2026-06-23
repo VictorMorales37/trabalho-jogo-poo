@@ -17,6 +17,8 @@ public class Jogador implements Entidade {
         this.simbolo = simbolo;
         this.saude = saude;
         this.percepcao = percepcao;
+        posicaoX = -1;
+        posicaoY = -1;
     }
 
     // ---------------------------- Override da interface ----------------------------

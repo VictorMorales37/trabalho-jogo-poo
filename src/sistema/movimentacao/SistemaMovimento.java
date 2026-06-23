@@ -1,9 +1,9 @@
 package sistema.movimentacao;
-import entidades.Jogador;
+import entidades.*;
 import util.Macros;
 
 public class SistemaMovimento {
-    private char[][] grid;
+    private final char[][] grid;
 
     public SistemaMovimento(char[][] grid) {
         this.grid = grid;
@@ -18,6 +18,18 @@ public class SistemaMovimento {
         if (resultado == ResultadoMovimento.LIVRE) {
             j.setPosicaoX(novoX);
             j.setPosicaoY(novoY);
+        }
+    }
+
+    public void moverDinossauro(Dinossauro d, Direcao direcao) {
+        int novoX = (d.getPosicaoX() + direcao.dx) * d.getVelocidade();
+        int novoY = (d.getPosicaoY() + direcao.dy) * d.getVelocidade();
+
+        ResultadoMovimento resultado = verificaMovimento(novoX, novoY);
+
+        if (resultado == ResultadoMovimento.LIVRE) {
+            d.setPosicaoX(novoX);
+            d.setPosicaoY(novoY);
         }
     }
 

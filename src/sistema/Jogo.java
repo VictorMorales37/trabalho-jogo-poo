@@ -1,27 +1,33 @@
 package sistema;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Random;
 import entidades.*;
 import sistema.movimentacao.*;
 import util.*;
-import java.util.Scanner;
-import java.util.Random;
 
 public class Jogo {
-    public static final Random RANDOM = new Random();
+    public final Random random;
     private final Scanner scanner;
     private final Menu menu;
     private final Tabuleiro tabuleiro;
     private final Jogador jogador;
     private final SistemaMovimento sistemaMovimento;
     private final LeitorDeInput leitorDeInput;
+    private final Spawner spawner;
+    private ArrayList<Dinossauro> dinossauros;
 
     public Jogo() {
+        random = new Random();
+        spawner = new Spawner();
         scanner = new Scanner(System.in);
-        menu = new Menu();
         tabuleiro = new Tabuleiro(Macros.TAMANHO_TABULEIRO);
-        jogador = new Jogador(Macros.SIMB_JOGADOR, Macros.SAUDE_JOGADOR,
-        Macros.VEL_JOGADOR, Macros.PERCEPCAO_INICIAL);
         sistemaMovimento = new SistemaMovimento(tabuleiro.getGrid());
+        menu = new Menu();
+        jogador = spawner.spawnJogador(tabuleiro);
         leitorDeInput = new LeitorDeInput(scanner);
+        dinossauros = new ArrayList<>();
     }
     private void setDificuldade() {
         int dificuldade = scanner.nextInt();
@@ -30,8 +36,8 @@ public class Jogo {
     public void iniciarJogo() {
         menu.escolherDificuldade();
         setDificuldade();
-        jogador.setPosicaoX(RANDOM.nextInt(tabuleiro.getDimensao()));
-        jogador.setPosicaoY(RANDOM.nextInt(tabuleiro.getDimensao()));
+        spawner.spawnDinossauros(tabuleiro, dinossauros);
+        tabuleiro.atualizar(jogador, dinossauros);
         loopJogo();
     }
     private void loopJogo() {
@@ -53,7 +59,7 @@ public class Jogo {
                         Direcao direcao = leitorDeInput.lerDirecao(leitorDeInput.input);
                         sistemaMovimento.moverJogador(jogador, direcao);
 
-                        tabuleiro.atualizar(jogador);
+                        tabuleiro.atualizar(jogador, dinossauros);
                     }
                     break;
                 case 2:

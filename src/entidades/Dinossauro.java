@@ -1,19 +1,56 @@
 package entidades;
-import sistema.Tabuleiro;
-import java.util.Random;
 
-public abstract class Dinossauro implements Entidade {
-    protected static final Random RANDOM = new Random();
+public class Dinossauro implements Entidade {
 
     protected char simbolo;
-    protected int posicaoX;
-    protected int posicaoY;
     protected int saude;
     protected int velocidade;
 
-    protected Dinossauro(char simbolo, Tabuleiro tabuleiro, int saude, int velocidade) {
+    protected int posicaoX;
+    protected int posicaoY;
+
+    public Dinossauro(char simbolo, int saude, int velocidade) {
         this.simbolo = simbolo;
         this.saude = saude;
         this.velocidade = velocidade;
+    }
+
+    @Override
+    public void setPosicaoX(int x) {
+        this.posicaoX = x;
+    }
+
+    @Override
+    public void setPosicaoY(int y) {
+        this.posicaoY = y;
+    }
+
+    @Override
+    public void setSaude(int saude) {
+        this.saude = saude;
+    }
+
+    @Override
+    public int getPosicaoX() {
+        return posicaoX;
+    }
+
+    @Override
+    public int getPosicaoY() {
+        return posicaoY;
+    }
+
+    @Override
+    public int getSaude() {
+        return saude;
+    }
+
+    @Override
+    public char getSimbolo() {
+        return simbolo;
+    }
+
+    public int getVelocidade() {
+        return velocidade;
     }
 }
