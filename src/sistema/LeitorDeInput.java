@@ -1,5 +1,7 @@
 package sistema;
 import sistema.movimentacao.Direcao;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class LeitorDeInput {
@@ -10,8 +12,19 @@ public class LeitorDeInput {
         this.scanner = scanner;
     }
 
-    public int lerInput() {
-        return scanner.nextInt();
+    public int lerInput(int min, int max) {
+        while (true) {
+            try {
+                int valor = scanner.nextInt();
+                if (valor >= min && valor <= max) {
+                    return valor;
+                }
+                System.out.println("Digite valor valido: (valores entre " + min + " e " + max + ")");
+            } catch (InputMismatchException e) {
+                System.out.println("Digite valor valido: (valores entre " + min + " e " + max + ")");
+                scanner.nextLine(); // limpa o buffer
+            }
+        }
     }
 
     public Direcao lerDirecao(int input) {

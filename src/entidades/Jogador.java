@@ -88,4 +88,8 @@ public class Jogador implements Entidade {
     public void setPercepcao(int p) {
         percepcao = p;
     }
+
+    public int getPercepcao() {
+        return percepcao;
+    }
 }

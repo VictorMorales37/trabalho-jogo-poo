@@ -9,7 +9,7 @@ public class SistemaMovimento {
         this.grid = grid;
     }
 
-    public void moverJogador(Jogador j, Direcao direcao) {
+    public ResultadoMovimento moverJogador(Jogador j, Direcao direcao) {
         int novoX = j.getPosicaoX() + direcao.dx;
         int novoY = j.getPosicaoY() + direcao.dy;
 
@@ -19,6 +19,7 @@ public class SistemaMovimento {
             j.setPosicaoX(novoX);
             j.setPosicaoY(novoY);
         }
+        return resultado;
     }
 
     public void moverDinossauro(Dinossauro d, Direcao direcao) {

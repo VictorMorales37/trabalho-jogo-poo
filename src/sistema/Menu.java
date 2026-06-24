@@ -29,6 +29,15 @@ public class Menu {
         System.out.println("4 - v");
         System.out.println("5 - Voltar");
     }
+    public void opcoesCombate() {
+        System.out.println("Escolha opção de ação:");
+        System.out.println("1- Atacar com as Mãos");
+        System.out.println("2- Atacar com Bastão");
+        System.out.println("3- Atacar com Dardos");
+        System.out.println("4- Curar");
+        System.out.println("5- Fugir do combate");
+    }
+
     public void avisoMovimento(ResultadoMovimento resultado) {
         if ( resultado == ResultadoMovimento.BLOQUEADO){
             System.out.println("Movimento não permitido");

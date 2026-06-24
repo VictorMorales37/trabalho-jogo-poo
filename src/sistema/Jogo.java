@@ -30,7 +30,7 @@ public class Jogo {
         dinossauros = new ArrayList<>();
     }
     private void setDificuldade() {
-        int dificuldade = scanner.nextInt();
+        int dificuldade = leitorDeInput.lerInput(1, 3);
         jogador.setPercepcao(4 - dificuldade);
     }
     public void iniciarJogo() {
@@ -40,12 +40,13 @@ public class Jogo {
         tabuleiro.atualizar(jogador, dinossauros);
         loopJogo();
     }
+
     private void loopJogo() {
 
         while (leitorDeInput.input != 2) { // MENU PRINCIPAL
 
             menu.menuPrincipal(); // 1 - mover personagem | 2 - sair do jogo
-            leitorDeInput.input = leitorDeInput.lerInput();
+            leitorDeInput.input = leitorDeInput.lerInput(1, 2);
 
             switch (leitorDeInput.input) {
 
@@ -54,10 +55,15 @@ public class Jogo {
 
                         menu.mostrarTabuleiro(tabuleiro, jogador);
                         menu.opcoesMovimento(); // 1, 2, 3, 4 - direções | 5 - voltar
+                        leitorDeInput.input = leitorDeInput.lerInput(1, 5);
 
-                        leitorDeInput.input = leitorDeInput.lerInput();
+                        if (leitorDeInput.input == 5) { break; }
+
                         Direcao direcao = leitorDeInput.lerDirecao(leitorDeInput.input);
-                        sistemaMovimento.moverJogador(jogador, direcao);
+                        ResultadoMovimento resMovimento = sistemaMovimento.moverJogador(jogador,direcao);
+                        menu.avisoMovimento(resMovimento);
+
+                        // se o resMovimento == encontrou algum dinossauro chama as funcoes de combate
 
                         tabuleiro.atualizar(jogador, dinossauros);
                     }
