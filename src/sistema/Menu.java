@@ -1,6 +1,7 @@
 package sistema;
 import sistema.movimentacao.ResultadoMovimento;
 import entidades.Jogador;
+import util.Macros;
 
 public class Menu {
     public void menuPrincipal() {
@@ -29,7 +30,8 @@ public class Menu {
         System.out.println("4 - v");
         System.out.println("5 - Voltar");
     }
-    public void opcoesCombate() {
+    public void opcoesCombate(Jogador j) {
+        System.out.println("Saude atual: " + j.getSaude() + " / " + Macros.SAUDE_JOGADOR + "\n");
         System.out.println("Escolha opção de ação:");
         System.out.println("1- Atacar com as Mãos");
         System.out.println("2- Atacar com Bastão");
@@ -54,5 +56,9 @@ public class Menu {
         else if (resultado == ResultadoMovimento.ENCONTROU_TREX){
             System.out.println("Encontrou Tiranossauro Rex!");
         }
+    }
+
+    public void mensagemSaida() {
+        System.out.println("Saindo do jogo...");
     }
 }

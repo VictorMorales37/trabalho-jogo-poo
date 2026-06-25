@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class LeitorDeInput {
     private final Scanner scanner;
-    public int input;
+    private int input;
 
     public LeitorDeInput(Scanner scanner) {
         this.scanner = scanner;

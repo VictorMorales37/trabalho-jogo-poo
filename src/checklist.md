@@ -20,7 +20,7 @@
 * [x] Gerar matriz do tabuleiro
 * [x] Posicionar jogador
 * [ ] Gerar paredes aleatórias
-* [ ] Posicionar dinossauros
+* [x] Posicionar dinossauros
 * [ ] Posicionar caixas
 * [ ] Garantir que o T-Rex fique no lado oposto ao jogador
 
@@ -39,19 +39,19 @@
 
 * [x] Movimento horizontal
 * [x] Movimento vertical
-* [ ] Impedir movimento em paredes
+* [x] Impedir movimento em paredes
 * [ ] Impedir movimento diagonal
 
 ---
 
 ### Fase 5 — Combate
 
-* [ ] Ataque com mãos
-* [ ] Ataque com bastão elétrico
-* [ ] Ataque com dardos
-* [ ] Sistema de dano
+* [x] Ataque com mãos
+* [x] Ataque com bastão elétrico
+* [x] Ataque com dardos
+* [x] Sistema de dano
 * [ ] Sistema de esquiva
-* [ ] Sistema de fuga
+* [x] Sistema de fuga
 * [ ] Regras especiais (Velociraptor e T-Rex)
 
 ---
@@ -96,7 +96,7 @@
 ### Fase 10 — Finalização
 
 * [ ] Verificar condição de vitória
-* [ ] Verificar condição de derrota
+* [x] Verificar condição de derrota
 * [ ] Testar todos os casos
 
 ---
