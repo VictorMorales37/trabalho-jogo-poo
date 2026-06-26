@@ -18,6 +18,7 @@ public class Jogo {
     private final LeitorDeInput leitorDeInput;
     private final Spawner spawner;
     private final ArrayList<Dinossauro> dinossauros;
+    private final ArrayList<Caixa> caixas;
 
     public Jogo() {
         random = new Random();
@@ -30,6 +31,7 @@ public class Jogo {
         jogador = spawner.spawnJogador(tabuleiro);
         leitorDeInput = new LeitorDeInput(scanner);
         dinossauros = new ArrayList<>();
+        caixas = new ArrayList<>();
 
     }
     private void setDificuldade() {
@@ -40,7 +42,8 @@ public class Jogo {
         menu.escolherDificuldade();
         setDificuldade();
         spawner.spawnDinossauros(tabuleiro, dinossauros);
-        tabuleiro.atualizar(jogador, dinossauros);
+        spawner.spawnCaixas(tabuleiro, caixas);
+        tabuleiro.atualizar(jogador, dinossauros, caixas);
         loopJogo();
         menu.mensagemSaida();
     }
@@ -76,7 +79,7 @@ public class Jogo {
                             }
                         }
 
-                        tabuleiro.atualizar(jogador, dinossauros);
+                        tabuleiro.atualizar(jogador, dinossauros, caixas);
                     }
 
                 } // movimentação e combate

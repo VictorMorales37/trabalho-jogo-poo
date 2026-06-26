@@ -63,6 +63,10 @@ public class Jogador implements Entidade {
         temBastao = true;
     }
 
+    public boolean getTemBastao() {
+        return temBastao;
+    }
+
     public void setArmaDardos(int armaDardos) {
         this.armaDardos += armaDardos;
     }
@@ -79,9 +83,6 @@ public class Jogador implements Entidade {
         return armaDardos;
     }
 
-    public boolean getTemBastao() {
-        return temBastao;
-    }
 
     // ---------------------------- outros metodos ----------------------------
 

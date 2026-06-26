@@ -72,7 +72,7 @@ public class SistemaCombate {
         return executarCombate(jogador, alvo, tabuleiro, scanner);
     }
 
-    private ResultadoCombate executarCombate(Jogador jogador, Dinossauro alvo, Tabuleiro tabuleiro ,Scanner scanner) {
+    public ResultadoCombate executarCombate(Jogador jogador, Dinossauro alvo, Tabuleiro tabuleiro ,Scanner scanner) {
         Menu menu = new Menu();
         LeitorDeInput leitorDeInput = new LeitorDeInput(scanner);
 
@@ -82,13 +82,17 @@ public class SistemaCombate {
 
             int dano = switch (input) {
                 case 1:
+                    if (alvo.getSimbolo() == Macros.SIMB_TREX) {
+                        System.out.println("Não é possível atacar o T-Rex sem armas!");
+                        yield 0;
+                    }
                     yield atacarMao();
 
                 case 2:
                     yield atacarBastao(jogador);
 
                 case 3:
-                    if (alvo.getSimbolo() == Macros.SIMB_VELOCIRAPTOR ) {
+                    if (alvo.getSimbolo() == Macros.SIMB_VELOCIRAPTOR) {
                         yield 0;
                     }
                     yield atacarArmaDardos(jogador);
@@ -127,7 +131,7 @@ public class SistemaCombate {
             System.out.println("Cuidado!");
             System.out.println("O dinossauro está tentando te atacar...");
             try {
-                Thread.sleep(500);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }

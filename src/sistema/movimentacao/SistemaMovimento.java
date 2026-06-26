@@ -55,7 +55,7 @@ public class SistemaMovimento {
             return ResultadoMovimento.ENCONTROU_TREX;
         }
         else if (grid[x][y] == Macros.SIMB_CAIXA) {
-            return ResultadoMovimento.ENCONTROU_ITEM;
+            return ResultadoMovimento.ENCONTROU_CAIXA;
         }
         else {
             return ResultadoMovimento.LIVRE;

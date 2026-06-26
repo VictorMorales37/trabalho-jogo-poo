@@ -51,4 +51,28 @@ public class Spawner {
             dinos.add(spawnDinossauro(t, TipoDinossauro.TREX));
         }
     }
+
+    public void spawnCaixas(Tabuleiro t, ArrayList<Caixa> caixas) {
+        TipoCaixa[] tipos = {
+                TipoCaixa.KIT_MEDICO,
+                TipoCaixa.BASTAO,
+                TipoCaixa.ARMA_DARDOS,
+                TipoCaixa.COMPSOGNATO_SURPRESA
+        };
+
+        for (TipoCaixa tipo : tipos) {
+            Caixa c = new Caixa(tipo);
+
+            c.setPosicaoX(random.nextInt(Macros.TAMANHO_TABULEIRO));
+            c.setPosicaoY(random.nextInt(Macros.TAMANHO_TABULEIRO));
+
+            while (!t.verificarPosicao(c.getPosicaoX(), c.getPosicaoY())) {
+                c.setPosicaoX(random.nextInt(Macros.TAMANHO_TABULEIRO));
+                c.setPosicaoY(random.nextInt(Macros.TAMANHO_TABULEIRO));
+            }
+
+            t.setPosicoesOcupadas(c.getPosicaoX(), c.getPosicaoY());
+            caixas.add(c);
+        }
+    }
 }

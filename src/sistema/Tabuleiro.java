@@ -39,7 +39,7 @@ public class Tabuleiro {
         posicoesOcupadas[x][y] = true;
     }
 
-    public void atualizar(Jogador j, ArrayList<Dinossauro> dinos) {
+    public void atualizar(Jogador j, ArrayList<Dinossauro> dinos,  ArrayList<Caixa> caixas) {
         for (int x = 0; x < dimensao; x++) {
             for (int y = 0; y < dimensao; y++) {
                 grid[x][y] = '.';
@@ -49,6 +49,11 @@ public class Tabuleiro {
                 for (Dinossauro dinossauro : dinos) {
                     if (dinossauro.getPosicaoX() == x && dinossauro.getPosicaoY() == y) {
                         grid[x][y] = dinossauro.getSimbolo();
+                    }
+                }
+                for (Caixa caixa : caixas) {
+                    if (caixa.getPosicaoX() == x && caixa.getPosicaoY() == y) {
+                        grid[x][y] = caixa.getSimbolo();
                     }
                 }
             }
