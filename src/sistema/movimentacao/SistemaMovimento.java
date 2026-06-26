@@ -15,7 +15,7 @@ public class SistemaMovimento {
 
         ResultadoMovimento resultado = verificaMovimento(novoX, novoY);
 
-        if (resultado == ResultadoMovimento.LIVRE) {
+        if (resultado == ResultadoMovimento.LIVRE || resultado == ResultadoMovimento.ENCONTROU_CAIXA) {
             j.setPosicaoX(novoX);
             j.setPosicaoY(novoY);
         }

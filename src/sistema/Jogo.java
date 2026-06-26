@@ -15,6 +15,7 @@ public class Jogo {
     private final Jogador jogador;
     private final SistemaMovimento sistemaMovimento;
     private final SistemaCombate sistemaCombate;
+    private final SistemaItens sistemaItens;
     private final LeitorDeInput leitorDeInput;
     private final Spawner spawner;
     private final ArrayList<Dinossauro> dinossauros;
@@ -27,6 +28,7 @@ public class Jogo {
         tabuleiro = new Tabuleiro(Macros.TAMANHO_TABULEIRO);
         sistemaMovimento = new SistemaMovimento(tabuleiro.getGrid());
         sistemaCombate = new SistemaCombate();
+        sistemaItens = new SistemaItens(sistemaCombate);
         menu = new Menu();
         jogador = spawner.spawnJogador(tabuleiro);
         leitorDeInput = new LeitorDeInput(scanner);
@@ -69,7 +71,22 @@ public class Jogo {
                         ResultadoMovimento resMovimento = sistemaMovimento.moverJogador(jogador,direcao);
                         menu.avisoMovimento(resMovimento);
 
-                        if (resMovimento != ResultadoMovimento.LIVRE && resMovimento != ResultadoMovimento.BLOQUEADO) {
+                        if (resMovimento == ResultadoMovimento.ENCONTROU_CAIXA) {
+                            int alvoX = jogador.getPosicaoX();
+                            int alvoY = jogador.getPosicaoY();
+
+                            Caixa caixa = null;
+                            for (Caixa c : caixas) {
+                                if (c.getPosicaoX() == alvoX && c.getPosicaoY() == alvoY) {
+                                    caixa = c;
+                                    break;
+                                }
+                            }
+
+                            sistemaItens.abrirCaixa(jogador, caixa, dinossauros, tabuleiro, scanner);
+                            caixas.remove(caixa);
+                        }
+                        else if (resMovimento != ResultadoMovimento.LIVRE && resMovimento != ResultadoMovimento.BLOQUEADO) {
                             ResultadoCombate resCombate = sistemaCombate.comecarCombate(jogador, direcao, dinossauros, tabuleiro, scanner);
                             if (resCombate == ResultadoCombate.PERDEU) {
                                 return;
