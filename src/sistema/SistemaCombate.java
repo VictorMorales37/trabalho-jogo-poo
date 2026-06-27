@@ -1,20 +1,20 @@
 package sistema;
-import sistema.movimentacao.Direcao;
 import sistema.movimentacao.ResultadoMovimento;
 import entidades.Dinossauro;
 import entidades.Jogador;
 import sistema.movimentacao.SistemaMovimento;
-import java.util.ArrayList;
 import util.Macros;
 import java.util.Random;
-import java.util.Scanner;
-
 
 public class SistemaCombate {
-    private static final Random RANDOM = new Random();
+    private final Random random;
+
+    public SistemaCombate(Random random) {
+        this.random = random;
+    }
     // ----------------------------- ataque -----------------------------
     public int atacarMao(){
-        int acerto = RANDOM.nextInt(6) + 1;
+        int acerto = random.nextInt(6) + 1;
 
         if (acerto == 6){ // crítico
             return 2;
@@ -22,13 +22,11 @@ public class SistemaCombate {
         else if (acerto == 1 || acerto == 2){ // falha
             return 0;
         }
-        else{
-            return 1;
-        }
+        else return 1;
     }
     public int atacarBastao(Jogador j) {
-        if (j.getTemBastao()){
-            int acerto = RANDOM.nextInt(6) + 1;
+        if (j.getTemBastao()) {
+            int acerto = random.nextInt(6) + 1;
             if (acerto == 6){ // crítico
                 return 2;
             }
@@ -53,36 +51,17 @@ public class SistemaCombate {
             return 0;
         }
     }
-    public Dinossauro encontrarDinossauro(int x, int y, ArrayList<Dinossauro> dinos) {
-        for (Dinossauro d : dinos) {
-            if (d.getPosicaoX() == x && d.getPosicaoY() == y) {
-                return d;
-            }
-        }
-        return null;
-    }
 
-    public ResultadoCombate comecarCombate(Jogador jogador, Direcao direcao, ArrayList<Dinossauro> dinos, Tabuleiro tabuleiro, Scanner scanner) {
-        int alvoX = jogador.getPosicaoX() + direcao.dx;
-        int alvoY = jogador.getPosicaoY() + direcao.dy;
+    public ResultadoCombate combate(Jogador jogador, Dinossauro dino, Menu menu,
+                                             LeitorDeInput leitorDeInput, Tabuleiro tabuleiro) {
 
-        Dinossauro alvo = encontrarDinossauro(alvoX, alvoY, dinos);
-        if (alvo == null) return null;
-
-        return executarCombate(jogador, alvo, tabuleiro, scanner);
-    }
-
-    public ResultadoCombate executarCombate(Jogador jogador, Dinossauro alvo, Tabuleiro tabuleiro ,Scanner scanner) {
-        Menu menu = new Menu();
-        LeitorDeInput leitorDeInput = new LeitorDeInput(scanner);
-
-        while (jogador.getSaude() > 0 && alvo.getSaude() > 0) {
+        while (jogador.getSaude() > 0 && dino.getSaude() > 0) {
             menu.opcoesCombate(jogador); // 1 - mão | 2 - bastão | 3 - dardos | 4 - curar | 5 - fugir
             int input = leitorDeInput.lerInput(1, 5);
 
             int dano = switch (input) {
                 case 1:
-                    if (alvo.getSimbolo() == Macros.SIMB_TREX) {
+                    if (dino.getSimbolo() == Macros.SIMB_TREX) {
                         System.out.println("Não é possível atacar o T-Rex sem armas!");
                         yield 0;
                     }
@@ -92,7 +71,7 @@ public class SistemaCombate {
                     yield atacarBastao(jogador);
 
                 case 3:
-                    if (alvo.getSimbolo() == Macros.SIMB_VELOCIRAPTOR) {
+                    if (dino.getSimbolo() == Macros.SIMB_VELOCIRAPTOR) {
                         yield 0;
                     }
                     yield atacarArmaDardos(jogador);
@@ -109,20 +88,19 @@ public class SistemaCombate {
 
             // ------------------------------ dano do ataque do jogador ------------------------------
 
-            if (dano == 0){
-                System.out.println("Ataque falhou");
-            }
-            else if ( dano == -1 ){
+            if (dano == 0) System.out.println("Ataque falhou");
+
+            else if (dano == -1) {
                 System.out.println("Voce fugiu");
                 return ResultadoCombate.FUGIU;
             }
-            else{
+            else {
                 System.out.println("Voce atacou o dinossauro");
                 System.out.println("Ele recebeu " + dano + " de dano\n");
             }
 
-            alvo.setSaude(alvo.getSaude() - dano);
-            if (alvo.getSaude() <= 0){
+            dino.setSaude(dino.getSaude() - dano);
+            if (dino.getSaude() <= 0) {
                 System.out.println("Voce derrotou o dinossauro!");
                 return ResultadoCombate.VENCEU;
             }
@@ -139,7 +117,7 @@ public class SistemaCombate {
             if ( passouTestePercepcao ){
                 System.out.println("Voce conseguiu desviar.");
             }
-            if (!passouTestePercepcao && alvo.getSimbolo() == Macros.SIMB_TREX) {
+            if (!passouTestePercepcao && dino.getSimbolo() == Macros.SIMB_TREX) {
                 System.out.println("T-REX TE ATACOU!!!");
                 jogador.setSaude(jogador.getSaude() - 4);
             }
@@ -148,46 +126,34 @@ public class SistemaCombate {
                 jogador.setSaude(jogador.getSaude() - 1);
             }
 
-
             if ( jogador.getSaude() <= 0){
-                System.out.println("Voce morreu!");
                 return ResultadoCombate.PERDEU;
             }
-
         }
         return null;
     }
 
     // ----------------------------- cura -----------------------------
-    public void acharKitsMedicos(Jogador j) {
-        j.setKitsMedicos(j.getKitsMedicos() + 1);
-    }
-
     public void curar(Jogador j) {
         if (j.getKitsMedicos() > 0) {
             j.setKitsMedicos(j.getKitsMedicos() - 1);
             j.setSaude(Macros.SAUDE_JOGADOR);
         }
-        else {
-            System.out.println("Você não possui kits médicos para usar.");
-        }
+        else System.out.println("Você não possui kits médicos para usar.");
     }
-    // ----------------------------- teste percepção -----------------------------
 
+    // ----------------------------- teste percepção -----------------------------
     public boolean passouTestePercepcao(Jogador j) {
-        int dado = RANDOM.nextInt(3) + 1;
+        int dado = random.nextInt(3) + 1;
         return dado <= j.getPercepcao();
     }
 
     // ----------------------------- fugir -----------------------------
     public void fugir(Jogador jogador, Tabuleiro tabuleiro) {
-        SistemaMovimento sistemaMovimento = new SistemaMovimento(tabuleiro.getGrid());
-        ResultadoMovimento tentativaFuga = ResultadoMovimento.BLOQUEADO;
-        Direcao[] direcoes = {Direcao.CIMA, Direcao.BAIXO, Direcao.ESQUERDA, Direcao.DIREITA};
+        SistemaMovimento sistemaMovimento = new SistemaMovimento(tabuleiro.getGrid(), random);
 
-        while (tentativaFuga != ResultadoMovimento.LIVRE) {
-            Direcao direcaoAleatoria = direcoes[RANDOM.nextInt(direcoes.length)];
-            tentativaFuga = sistemaMovimento.moverJogador(jogador, direcaoAleatoria);
+        for (int tentativas = 0; tentativas < 4; tentativas++) {
+            sistemaMovimento.moverJogador(jogador, sistemaMovimento.direcaoAleatoria());
         }
     }
 }

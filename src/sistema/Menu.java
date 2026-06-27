@@ -15,7 +15,7 @@ public class Menu {
         System.out.println("2- Médio");
         System.out.println("3- Difícil");
     }
-    public void mostrarTabuleiro(Tabuleiro t, Jogador j) {
+    public void mostrarTabuleiro(Tabuleiro t) {
         for (int x = 0; x < t.getDimensao(); x++) {
             for (int y = 0; y < t.getDimensao(); y++) {
                 System.out.print(t.getGrid()[x][y] + " ");
@@ -56,6 +56,12 @@ public class Menu {
         else if (resultado == ResultadoMovimento.ENCONTROU_TREX){
             System.out.println("Encontrou Tiranossauro Rex!");
         }
+    }
+    public void mensagemVitoria() {
+        System.out.println("Você EXTINGUIU os dinossauros!");
+    }
+    public void mensagemDerrota() {
+        System.out.println("Você MORREU!");
     }
 
     public void mensagemSaida() {

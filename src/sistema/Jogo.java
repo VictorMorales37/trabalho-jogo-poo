@@ -26,8 +26,8 @@ public class Jogo {
         spawner = new Spawner();
         scanner = new Scanner(System.in);
         tabuleiro = new Tabuleiro(Macros.TAMANHO_TABULEIRO);
-        sistemaMovimento = new SistemaMovimento(tabuleiro.getGrid());
-        sistemaCombate = new SistemaCombate();
+        sistemaMovimento = new SistemaMovimento(tabuleiro.getGrid(), random);
+        sistemaCombate = new SistemaCombate(random);
         sistemaItens = new SistemaItens(sistemaCombate);
         menu = new Menu();
         jogador = spawner.spawnJogador(tabuleiro);
@@ -47,63 +47,86 @@ public class Jogo {
         spawner.spawnCaixas(tabuleiro, caixas);
         tabuleiro.atualizar(jogador, dinossauros, caixas);
         loopJogo();
-        menu.mensagemSaida();
     }
 
     private void loopJogo() {
-        int inputMenu = 0;
-        while (inputMenu != 2) { // MENU PRINCIPAL
-            menu.menuPrincipal(); // 1 - mover personagem | 2 - sair do jogo
-            inputMenu = leitorDeInput.lerInput(1, 2);
 
-            if (inputMenu == 1) {
+        int inputOpcoes = 0;
+
+        while (inputOpcoes != 2) { // MENU PRINCIPAL
+
+            menu.menuPrincipal(); // 1 - mover personagem | 2 - sair do jogo
+            inputOpcoes = leitorDeInput.lerInput(1, 2);
+
+            if (inputOpcoes == 1) { //MOVIMENTACAO
 
                 int inputMovimento = 0;
 
                 while (inputMovimento != 5) {
 
-                    menu.mostrarTabuleiro(tabuleiro, jogador);
-                    menu.opcoesMovimento(); // 1, 2, 3, 4 - direções | 5 - voltar
-                    inputMovimento = leitorDeInput.lerInput(1, 5);
-
-                    if (inputMovimento != 5) {
-                        Direcao direcao = leitorDeInput.lerDirecao(inputMovimento);
-                        ResultadoMovimento resMovimento = sistemaMovimento.moverJogador(jogador,direcao);
-                        menu.avisoMovimento(resMovimento);
-
-                        if (resMovimento == ResultadoMovimento.ENCONTROU_CAIXA) {
-                            int alvoX = jogador.getPosicaoX();
-                            int alvoY = jogador.getPosicaoY();
-
-                            Caixa caixa = null;
-                            for (Caixa c : caixas) {
-                                if (c.getPosicaoX() == alvoX && c.getPosicaoY() == alvoY) {
-                                    caixa = c;
-                                    break;
-                                }
-                            }
-
-                            sistemaItens.abrirCaixa(jogador, caixa, dinossauros, tabuleiro, scanner);
-                            caixas.remove(caixa);
-                        }
-                        else if (resMovimento != ResultadoMovimento.LIVRE && resMovimento != ResultadoMovimento.BLOQUEADO) {
-                            ResultadoCombate resCombate = sistemaCombate.comecarCombate(jogador, direcao, dinossauros, tabuleiro, scanner);
-                            if (resCombate == ResultadoCombate.PERDEU) {
-                                return;
-                            }
-                            else if (resCombate == ResultadoCombate.VENCEU) {
-                                // o que fazer quando o jogador matar um dinossauro
-                            }
-                        }
-
-                        tabuleiro.atualizar(jogador, dinossauros, caixas);
+                    if (dinossauros.isEmpty()) {
+                        menu.mensagemVitoria();
+                        return;
                     }
 
-                } // movimentação e combate
+                    menu.mostrarTabuleiro(tabuleiro);
+                    menu.opcoesMovimento(); // 1, 2, 3, 4 - direções | 5 - voltar
 
+                    inputMovimento = leitorDeInput.lerInput(1, 5);
+                    Direcao direcao = leitorDeInput.lerDirecao(inputMovimento);
+
+                    if (inputMovimento == 5) continue;
+
+                    ResultadoMovimento resMovimento = sistemaMovimento.moverJogador(jogador, direcao);
+                    menu.avisoMovimento(resMovimento);
+
+                    if (resMovimento == ResultadoMovimento.ENCONTROU_CAIXA) {
+                        for (Caixa c : caixas) {
+                            if (c.getPosicaoX() == jogador.getPosicaoX()
+                                    && c.getPosicaoY() == jogador.getPosicaoY()) {
+                                sistemaItens.abrirCaixa(jogador, c, dinossauros, tabuleiro, menu, leitorDeInput);
+                                caixas.remove(c);
+                                break;
+                            }
+                        }
+                    }
+                    else if (resMovimento != ResultadoMovimento.LIVRE &&
+                            resMovimento != ResultadoMovimento.BLOQUEADO) {
+
+                        Dinossauro morto = null;
+                        ResultadoCombate resCombate;
+
+                        for (Dinossauro d : dinossauros) {
+                            if (d.getPosicaoX() != jogador.getPosicaoX() + direcao.dx ||
+                                d.getPosicaoY() != jogador.getPosicaoY() + direcao.dy) {
+                                continue;
+                            }
+                            resCombate =
+                                    sistemaCombate.combate(
+                                            jogador, d,
+                                            menu, leitorDeInput,
+                                            tabuleiro);
+
+                            if (resCombate == ResultadoCombate.PERDEU) {
+                                menu.mensagemDerrota();
+                                return;
+                            }
+                            if (resCombate == ResultadoCombate.VENCEU) morto = d;
+                        }
+
+                        if (morto != null) {
+                            dinossauros.remove(morto);
+                            tabuleiro.atualizar(jogador, dinossauros, caixas);
+                            sistemaMovimento.moverJogador(jogador, direcao);
+                        }
+                    }
+                    tabuleiro.atualizar(jogador, dinossauros, caixas);
+                    for (Dinossauro d : dinossauros) {
+                        sistemaMovimento.moverDinossauro(d);
+                        tabuleiro.atualizar(jogador, dinossauros, caixas);
+                    }
+                }
             }
-
-        } // loop do jogo
-
+        }
     }
 }

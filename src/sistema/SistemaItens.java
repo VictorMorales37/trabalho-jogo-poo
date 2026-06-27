@@ -2,7 +2,6 @@ package sistema;
 
 import entidades.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class SistemaItens {
     private final SistemaCombate sistemaCombate;
@@ -11,11 +10,10 @@ public class SistemaItens {
         this.sistemaCombate = sistemaCombate;
     }
 
-    public void abrirCaixa(Jogador jogador, Caixa caixa, ArrayList<Dinossauro> dinossauros, Tabuleiro tabuleiro, Scanner scanner) {
-        if (caixa == null) {
-            return;
-        }
-        else if (caixa.getTipo() == TipoCaixa.KIT_MEDICO) {
+    public void abrirCaixa(Jogador jogador, Caixa caixa, ArrayList<Dinossauro> dinossauros,
+                           Tabuleiro tabuleiro, Menu menu, LeitorDeInput leitorDeInput) {
+
+        if (caixa.getTipo() == TipoCaixa.KIT_MEDICO) {
             System.out.println("Você encontrou Kit Médico");
             jogador.setKitsMedicos(jogador.getKitsMedicos() + 1);
         }
@@ -35,7 +33,7 @@ public class SistemaItens {
             surpresa.setPosicaoX(caixa.getPosicaoX());
             surpresa.setPosicaoY(caixa.getPosicaoY());
             dinossauros.add(surpresa);
-            sistemaCombate.executarCombate(jogador, surpresa, tabuleiro, scanner);
+            sistemaCombate.combate(jogador, surpresa, menu, leitorDeInput, tabuleiro);
         }
     }
 }

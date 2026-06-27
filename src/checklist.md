@@ -21,7 +21,7 @@
 * [x] Posicionar jogador
 * [ ] Gerar paredes aleatórias
 * [x] Posicionar dinossauros
-* [ ] Posicionar caixas
+* [x] Posicionar caixas
 * [ ] Garantir que o T-Rex fique no lado oposto ao jogador
 
 ---
