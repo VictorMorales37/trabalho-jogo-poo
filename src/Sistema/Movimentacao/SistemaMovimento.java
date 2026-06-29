@@ -1,6 +1,7 @@
-package sistema.movimentacao;
-import entidades.*;
-import util.Macros;
+package Sistema.Movimentacao;
+import Entidades.*;
+import Entidades.Dinossauros.Dinossauro;
+import Util.Macros;
 
 import java.util.Random;
 
@@ -15,7 +16,7 @@ public class SistemaMovimento {
 
     public ResultadoMovimento verificaMovimento(int x, int y){
 
-        if ((x < 0 || x >= Macros.TAMANHO_TABULEIRO) || (y < 0 || y >= Macros.TAMANHO_TABULEIRO)){
+        if ((x < 0 || x >= Macros.TAMANHO_TABULEIRO) || (y < 0 || y >= Macros.TAMANHO_TABULEIRO) || grid[x][y] == Macros.SIMB_PAREDE){
             return ResultadoMovimento.BLOQUEADO;
         }
         else if (grid[x][y] == Macros.SIMB_COMPSOGNATO) {
@@ -58,20 +59,30 @@ public class SistemaMovimento {
             default -> Direcao.INVALIDA;
         };
     }
-    public void moverDinossauro(Dinossauro d) {
+    public boolean moverDinossauro(Dinossauro d, Jogador jogador) {
+        for (int i = 0; i < d.getVelocidade(); i++) {
+            int novoX;
+            int novoY;
+            int tentativas = 0;
+            do {
+                Direcao direcaoAleatoria = direcaoAleatoria();
+                novoX = d.getPosicaoX() + direcaoAleatoria.dx;
+                novoY = d.getPosicaoY() + direcaoAleatoria.dy;
+                tentativas++;
+            } while ((verificaMovimento(novoX, novoY) != ResultadoMovimento.LIVRE &&
+                    !(novoX == jogador.getPosicaoX() && novoY == jogador.getPosicaoY()))
+                    && tentativas < 4);
 
-        int novoX;
-        int novoY;
-        int tentativas = 0;
-        do {
-            Direcao direcaoAleatoria = direcaoAleatoria();
-            novoX = d.getPosicaoX() + direcaoAleatoria.dx * d.getVelocidade();
-            novoY = d.getPosicaoY() + direcaoAleatoria.dy * d.getVelocidade();
-            tentativas++;
-        } while (verificaMovimento(novoX, novoY) != ResultadoMovimento.LIVRE && tentativas < 4);
+            if (tentativas >= 4) return false;
 
-        if (tentativas >= 4) return;
-        d.setPosicaoX(novoX);
-        d.setPosicaoY(novoY);
+            d.setPosicaoX(novoX);
+            d.setPosicaoY(novoY);
+
+            if (d.getPosicaoX() == jogador.getPosicaoX() &&
+                    d.getPosicaoY() == jogador.getPosicaoY()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

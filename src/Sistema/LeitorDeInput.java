@@ -1,5 +1,5 @@
-package sistema;
-import sistema.movimentacao.Direcao;
+package Sistema;
+import Sistema.Movimentacao.Direcao;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

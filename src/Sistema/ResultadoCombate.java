@@ -1,4 +1,4 @@
-package sistema;
+package Sistema;
 
 public enum ResultadoCombate {
     VENCEU,

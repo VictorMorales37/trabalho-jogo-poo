@@ -1,120 +1,160 @@
-## Ordem de Implementação
+# Checklist de Implementação — Projeto Jurassic Park
 
-### Fase 1 — Estrutura Base
+## ATIVIDADE 1 — Inicialização do Jogo
 
-* [x] Criar classe `sistema.Tabuleiro`
-* [x] Criar classe `entidades.Jogador`
-* [x] Criar classe abstrata `entidades.Dinossauro`
-* [ ] Criar subclasses:
-  * [ ] `Compsognato`
-  * [ ] `Troodonte`
-  * [ ] `Velociraptor`
-  * [ ] `TRex`
-* [ ] Criar classe `CaixaSuprimentos`
-* [ ] Criar classes de itens/armas
+### Menu Inicial
 
----
+* [x] Exibir mensagem de boas-vindas.
+* [x] Exibir menu principal:
 
-### Fase 2 — Geração do sistema.Jogo
+  * [x] Jogar.
+  * [x] Sair.
 
-* [x] Gerar matriz do tabuleiro
-* [x] Posicionar jogador
-* [ ] Gerar paredes aleatórias
-* [x] Posicionar dinossauros
-* [x] Posicionar caixas
-* [ ] Garantir que o T-Rex fique no lado oposto ao jogador
+### Seleção de Dificuldade
 
----
+* [x] Fácil → percepção = 3.
+* [x] Médio → percepção = 2.
+* [x] Difícil → percepção = 1.
 
-### Fase 3 — sistema.Menu Inicial
+### Geração do Mapa
 
-* [x] Tela de boas-vindas
-* [x] Escolha de dificuldade
-* [x] Definir percepção do jogador
-* [x] Iniciar jogo
+* [x] Gerar tabuleiro aleatoriamente.
+* [x] Posicionar o jogador.
+* [x] Posicionar paredes.
+* [x] Posicionar caixas de suprimentos.
+* [x] Posicionar os dinossauros.
 
----
+### Quantidade de Entidades
 
-### Fase 4 — Movimentação
+* [x] 2 Compsognatos.
+* [x] 2 Velociraptors.
+* [x] 5 Troodontes.
+* [x] 1 Tiranossauro Rex.
+* [x] 4 Caixas.
 
-* [x] Movimento horizontal
-* [x] Movimento vertical
-* [x] Impedir movimento em paredes
-* [ ] Impedir movimento diagonal
+### Regras Especiais
+
+* [ ] O T-Rex deve surgir na extremidade oposta ao jogador.
+* [x] Opção "Sair" encerra o programa.
 
 ---
 
-### Fase 5 — Combate
+## ATIVIDADE 2 — Jogo em Andamento
 
-* [x] Ataque com mãos
-* [x] Ataque com bastão elétrico
-* [x] Ataque com dardos
-* [x] Sistema de dano
-* [ ] Sistema de esquiva
-* [x] Sistema de fuga
-* [ ] Regras especiais (Velociraptor e T-Rex)
+### Exibição do Jogo
 
----
+* [x] Imprimir o mapa.
+* [x] Exibir saúde do jogador.
+* [x] Exibir percepção do jogador.
 
-### Fase 6 — Caixas e Itens
+### Sistema de Visão
 
-* [ ] Kit médico
-* [ ] Bastão elétrico
-* [ ] Arma de dardos
-* [ ] Munição
-* [ ] Compsognato surpresa
+* [ ] O jogador enxerga horizontalmente.
+* [ ] O jogador enxerga verticalmente.
 
----
+### Menu Durante o Jogo
 
-### Fase 7 — Movimento dos Dinossauros
+* [x] Cura.
+* [x] DEBUG.
+* [x] Sair.
 
-* [ ] Movimento aleatório dos inimigos
-* [ ] Velociraptor move 2 casas
-* [ ] T-Rex imóvel
-* [ ] Combate quando encontram o jogador
+### Cura
 
----
+* [x] Verificar se o jogador possui kit médico.
+* [x] Recuperar pontos de vida.
+* [x] Consumir o item.
+* [x] Contar como uma jogada.
 
-### Fase 8 — Visão do entidades.Jogador
+### Modo DEBUG
 
-* [ ] Implementar linha de visão
-* [ ] Mostrar apenas o que o jogador pode enxergar
-* [ ] Implementar modo DEBUG
+* [ ] Revelar todas as posições do mapa.
+* [ ] Mostrar todos os inimigos.
 
----
+### Opção Sair
 
-### Fase 9 — Menus do sistema.Jogo
+* [x] Encerrar o jogo atual.
+* [x] Exibir:
 
-* [ ] Cura
-* [ ] DEBUG
-* [ ] Sair
-* [ ] Reiniciar jogo
-* [ ] Novo jogo
+  * [x] Reiniciar Jogo.
+  * [x] Novo Jogo.
 
 ---
 
-### Fase 10 — Finalização
+## Movimentação
 
-* [ ] Verificar condição de vitória
-* [x] Verificar condição de derrota
-* [ ] Testar todos os casos
+### Jogador
+
+* [x] Movimentação apenas na horizontal.
+* [x] Movimentação apenas na vertical.
+* [x] Impedir movimento diagonal.
+
+### Dinossauros
+
+* [x] Todos os dinossauros (exceto T-Rex) se movem após a jogada do jogador.
+* [x] Movimento aleatório.
+* [x] Não podem ocupar a mesma posição.
+
+### Velociraptor
+
+* [ ] Move até duas posições.
+* [ ] Pode parar na primeira posição.
+* [ ] Inicia combate ao encontrar o jogador.
 
 ---
 
-### Fase 11 — Requisitos de POO
+## Combate
 
-* [ ] Encapsulamento
-* [ ] Herança
-* [ ] Polimorfismo
-* [ ] Composição
-* [ ] Interface (`interface`)
+### Combate ao Encontrar Dinossauro
+
+* [x] Iniciar combate ao entrar na posição do inimigo.
+
+### Turnos de Combate
+
+* [x] Jogador ataca.
+* [x] Dinossauro ataca.
+
+### Continuação do Combate
+
+* [x] Permitir continuar lutando.
+* [x] Permitir fugir.
+
+### Ataque Surpresa
+
+* [ ] Se um dinossauro encontrar o jogador:
+* [ ] O dinossauro ataca primeiro.
 
 ---
 
-### Fase 12 — Relatório
+## Caixas de Suprimentos
 
-* [ ] Diagrama de classes
-* [ ] Explicar conceitos de POO utilizados
-* [ ] Instruções para executar
-* [ ] Prints do jogo
-* [ ] Conclusão
+* [ ] Permitir caixa e dinossauro na mesma posição.
+* [x] Abrir a caixa ao interagir.
+* [x] Aplicar o item obtido.
+
+---
+
+## ATIVIDADE 3 — Final do Jogo
+
+### Condições de Vitória
+
+* [x] Derrotar todos os dinossauros.
+
+### Condições de Derrota
+
+* [x] Jogador morrer.
+
+### Tela Final
+
+* [x] Exibir mensagem de vitória.
+* [x] Exibir mensagem de derrota.
+
+### Opções Finais
+
+* [x] Novo Jogo.
+* [x] Reiniciar Jogo (opcional).
+
+### Novo Jogo
+
+* [x] Retornar ao menu inicial.
+* [x] Permitir escolher dificuldade.
+* [x] Gerar novo mapa.

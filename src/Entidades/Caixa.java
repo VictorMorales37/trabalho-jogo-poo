@@ -1,6 +1,6 @@
-package entidades;
+package Entidades;
 
-import util.Macros;
+import Util.Macros;
 
 public class Caixa {
     private final TipoCaixa tipo;
@@ -9,6 +9,15 @@ public class Caixa {
 
     public Caixa(TipoCaixa tipo) {
         this.tipo = tipo;
+    }
+
+    public Caixa copia() {
+        Caixa c = new Caixa(tipo);
+
+        c.setPosicaoX(posicaoX);
+        c.setPosicaoY(posicaoY);
+
+        return c;
     }
 
     public TipoCaixa getTipo() { return tipo; }

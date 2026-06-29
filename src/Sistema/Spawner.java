@@ -1,7 +1,8 @@
-package sistema;
+package Sistema;
 
-import entidades.*;
-import util.Macros;
+import Entidades.*;
+import Entidades.Dinossauros.*;
+import Util.Macros;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,7 +16,7 @@ public class Spawner {
     }
 
     public Jogador spawnJogador(Tabuleiro t) {
-        Jogador j = new Jogador(Macros.SIMB_JOGADOR, Macros.VEL_JOGADOR, Macros.SAUDE_JOGADOR, Macros.PERCEPCAO_INICIAL);
+        Jogador j = new Jogador(Macros.SIMB_JOGADOR, Macros.SAUDE_JOGADOR, Macros.PERCEPCAO_INICIAL);
         while (!t.verificarPosicao(j.getPosicaoX(), j.getPosicaoY())) {
             j.setPosicaoX(random.nextInt(Macros.TAMANHO_TABULEIRO));
             j.setPosicaoY(random.nextInt(Macros.TAMANHO_TABULEIRO));
@@ -25,7 +26,12 @@ public class Spawner {
     }
 
     private Dinossauro spawnDinossauro(Tabuleiro t, TipoDinossauro tipo) {
-        Dinossauro d = new Dinossauro(tipo.simbolo, tipo.saude, tipo.velocidade);
+        Dinossauro d = switch (tipo) {
+            case COMPSOGNATO -> new Compsognato();
+            case TROODONTE   -> new Troodonte();
+            case VELOCIRAPTOR -> new Velociraptor();
+            case TREX        -> new TiranossauroRex();
+        };
 
         while (!t.verificarPosicao(d.getPosicaoX(), d.getPosicaoY())) {
             d.setPosicaoX(random.nextInt(Macros.TAMANHO_TABULEIRO));
@@ -33,7 +39,6 @@ public class Spawner {
         }
 
         t.setPosicoesOcupadas(d.getPosicaoX(), d.getPosicaoY());
-
         return d;
     }
 
@@ -62,17 +67,34 @@ public class Spawner {
 
         for (TipoCaixa tipo : tipos) {
             Caixa c = new Caixa(tipo);
-
-            c.setPosicaoX(random.nextInt(Macros.TAMANHO_TABULEIRO));
-            c.setPosicaoY(random.nextInt(Macros.TAMANHO_TABULEIRO));
-
-            while (!t.verificarPosicao(c.getPosicaoX(), c.getPosicaoY())) {
+            do {
                 c.setPosicaoX(random.nextInt(Macros.TAMANHO_TABULEIRO));
                 c.setPosicaoY(random.nextInt(Macros.TAMANHO_TABULEIRO));
-            }
+            } while (!t.verificarPosicao(c.getPosicaoX(), c.getPosicaoY()));
 
             t.setPosicoesOcupadas(c.getPosicaoX(), c.getPosicaoY());
             caixas.add(c);
+        }
+    }
+
+    public void spawnParedes(Tabuleiro t) {
+        int numSegmentos = (int)(Macros.TAMANHO_TABULEIRO * 0.5);
+
+        for (int i = 0; i < numSegmentos; i++) {
+            int tamanho = 3 + random.nextInt(3);
+            boolean vertical = random.nextBoolean();
+            int x = random.nextInt(Macros.TAMANHO_TABULEIRO);
+            int y = random.nextInt(Macros.TAMANHO_TABULEIRO);
+
+            for (int j = 0; j < tamanho; j++) {
+                int px = vertical ? x + j : x;
+                int py = vertical ? y : y + j;
+                if (px < Macros.TAMANHO_TABULEIRO && py < Macros.TAMANHO_TABULEIRO
+                        && t.verificarPosicao(px, py)) {
+                    t.setPosicoesOcupadas(px, py);
+                    t.getParedes().add(new int[]{px, py});
+                }
+            }
         }
     }
 }

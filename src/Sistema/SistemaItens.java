@@ -1,6 +1,9 @@
-package sistema;
+package Sistema;
 
-import entidades.*;
+import Entidades.*;
+import Entidades.Dinossauros.Compsognato;
+import Entidades.Dinossauros.Dinossauro;
+
 import java.util.ArrayList;
 
 public class SistemaItens {
@@ -10,7 +13,7 @@ public class SistemaItens {
         this.sistemaCombate = sistemaCombate;
     }
 
-    public void abrirCaixa(Jogador jogador, Caixa caixa, ArrayList<Dinossauro> dinossauros,
+    public TipoCaixa abrirCaixa(Jogador jogador, Caixa caixa, ArrayList<Dinossauro> dinossauros,
                            Tabuleiro tabuleiro, Menu menu, LeitorDeInput leitorDeInput) {
 
         if (caixa.getTipo() == TipoCaixa.KIT_MEDICO) {
@@ -27,13 +30,7 @@ public class SistemaItens {
         }
         else if (caixa.getTipo() == TipoCaixa.COMPSOGNATO_SURPRESA) {
             System.out.println("Cuidado! Um compsognato estava atrás da caixa");
-            Dinossauro surpresa = new Dinossauro(TipoDinossauro.COMPSOGNATO.simbolo,
-                    TipoDinossauro.COMPSOGNATO.saude,
-                    TipoDinossauro.COMPSOGNATO.velocidade);
-            surpresa.setPosicaoX(caixa.getPosicaoX());
-            surpresa.setPosicaoY(caixa.getPosicaoY());
-            dinossauros.add(surpresa);
-            sistemaCombate.combate(jogador, surpresa, menu, leitorDeInput, tabuleiro);
         }
+        return caixa.getTipo();
     }
 }

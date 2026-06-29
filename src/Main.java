@@ -1,6 +1,14 @@
-import sistema.Jogo;
+import Sistema.Jogo;
+import Sistema.EstadoJogo;
 
-void main() {
+public static void main(String[] args) {
     Jogo jogo = new Jogo();
-    jogo.iniciarJogo();
+
+    while (jogo.getEstado() != EstadoJogo.SAIR) {
+        jogo.iniciarJogo();
+
+        if (jogo.getEstado() == EstadoJogo.NOVO_JOGO) {
+            jogo = new Jogo();
+        }
+    }
 }

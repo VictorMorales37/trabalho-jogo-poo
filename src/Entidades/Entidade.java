@@ -1,4 +1,4 @@
-package entidades;
+package Entidades;
 
 public interface Entidade {
     void setPosicaoX(int x);

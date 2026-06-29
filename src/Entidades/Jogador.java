@@ -1,4 +1,4 @@
-package entidades;
+package Entidades;
 
 public class Jogador implements Entidade {
     private final char simbolo;
@@ -11,7 +11,7 @@ public class Jogador implements Entidade {
     private int kitsMedicos;
     private boolean temBastao = false;
 
-    public Jogador(char simbolo, int velocidade, int saude, int percepcao) {
+    public Jogador(char simbolo, int saude, int percepcao) {
         armaDardos = 0;
         kitsMedicos = 0;
         this.simbolo = simbolo;
@@ -19,6 +19,16 @@ public class Jogador implements Entidade {
         this.percepcao = percepcao;
         posicaoX = -1;
         posicaoY = -1;
+    }
+
+    public Jogador copia() {
+        Jogador j = new Jogador(simbolo, saude, percepcao);
+
+        j.setPosicaoX(posicaoX);
+        j.setPosicaoY(posicaoY);
+        j.setSaude(saude);
+
+        return j;
     }
 
     // ---------------------------- Override da interface ----------------------------

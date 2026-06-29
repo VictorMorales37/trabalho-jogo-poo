@@ -1,9 +1,8 @@
-package sistema;
-import sistema.movimentacao.ResultadoMovimento;
-import entidades.Dinossauro;
-import entidades.Jogador;
-import sistema.movimentacao.SistemaMovimento;
-import util.Macros;
+package Sistema;
+import Entidades.Dinossauros.Dinossauro;
+import Entidades.Jogador;
+import Sistema.Movimentacao.SistemaMovimento;
+import Util.Macros;
 import java.util.Random;
 
 public class SistemaCombate {
@@ -61,7 +60,7 @@ public class SistemaCombate {
 
             int dano = switch (input) {
                 case 1:
-                    if (dino.getSimbolo() == Macros.SIMB_TREX) {
+                    if (!dino.podeSerAtacadoSemArma()) {
                         System.out.println("Não é possível atacar o T-Rex sem armas!");
                         yield 0;
                     }
@@ -71,7 +70,8 @@ public class SistemaCombate {
                     yield atacarBastao(jogador);
 
                 case 3:
-                    if (dino.getSimbolo() == Macros.SIMB_VELOCIRAPTOR) {
+                    if (!dino.podeSerAtacadoComDardos()) {
+                        System.out.println("O Velociraptor é ágil demais para os dardos!");
                         yield 0;
                     }
                     yield atacarArmaDardos(jogador);
@@ -123,7 +123,7 @@ public class SistemaCombate {
             }
             else if (!passouTestePercepcao) {
                 System.out.println("O dinossauro te atacou!");
-                jogador.setSaude(jogador.getSaude() - 1);
+                jogador.setSaude(jogador.getSaude() - dino.getDanoAtaque());
             }
 
             if ( jogador.getSaude() <= 0){

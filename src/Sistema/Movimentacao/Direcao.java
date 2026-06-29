@@ -1,4 +1,4 @@
-    package sistema.movimentacao;
+    package Sistema.Movimentacao;
 
     public enum Direcao {
         CIMA (-1, 0),

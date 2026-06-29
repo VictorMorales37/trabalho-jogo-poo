@@ -1,4 +1,4 @@
-package entidades;
+package Entidades;
 
 public enum TipoCaixa {
     KIT_MEDICO,
