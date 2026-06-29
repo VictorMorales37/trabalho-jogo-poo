@@ -136,10 +136,11 @@ public class SistemaCombate {
     // ----------------------------- cura -----------------------------
     public void curar(Jogador j) {
         if (j.getKitsMedicos() > 0) {
+            System.out.println("Você usou um Kit Médico.");
             j.setKitsMedicos(j.getKitsMedicos() - 1);
             j.setSaude(Macros.SAUDE_JOGADOR);
         }
-        else System.out.println("Você não possui kits médicos para usar.");
+        else System.out.println("Você não possui Kits Médicos para usar.");
     }
 
     // ----------------------------- teste percepção -----------------------------

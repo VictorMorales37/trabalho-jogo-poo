@@ -71,7 +71,7 @@ public class Jogo {
                 return;
             }
             spawner.spawnParedes(tabuleiro);
-            spawner.spawnDinossauros(tabuleiro, dinossauros);
+            spawner.spawnDinossauros(tabuleiro, dinossauros, jogador);
             spawner.spawnCaixas(tabuleiro, caixas);
             tabuleiro.atualizar(jogador, dinossauros, caixas);
             tabuleiro.salvarPosicoes();
@@ -104,7 +104,10 @@ public class Jogo {
 
         if (inputOpcoes == 1) estado = EstadoJogo.REINICIAR;
         else if (inputOpcoes == 2) estado = EstadoJogo.NOVO_JOGO;
-        else estado = EstadoJogo.SAIR;
+        else {
+            menu.mensagemSaida();
+            estado = EstadoJogo.SAIR;
+        }
     }
 
     private void salvarEstadoInicial() {
@@ -160,14 +163,14 @@ public class Jogo {
 
     private void processarResultadoMovimento(ResultadoMovimento resMovimento, Direcao direcao) {
         if (resMovimento == ResultadoMovimento.ENCONTROU_CAIXA) {
-            processarCaixa(direcao);
+            processarCaixa();
         } else if (resMovimento != ResultadoMovimento.LIVRE &&
                 resMovimento != ResultadoMovimento.BLOQUEADO) {
             processarCombate(direcao);
         }
     }
 
-    private void processarCaixa(Direcao direcao) {
+    private void processarCaixa() {
 
         for (Caixa c : caixas) {
             if (c.getPosicaoX() == jogador.getPosicaoX()
@@ -179,9 +182,12 @@ public class Jogo {
                     dinossauros.add(surpresa);
                     surpresa.setPosicaoX(c.getPosicaoX());
                     surpresa.setPosicaoY(c.getPosicaoY());
-                    processarCombate(direcao);
+                    caixas.remove(c);
+                    processarResultadoCombate(surpresa, true);
                 }
-                caixas.remove(c);
+                else {
+                    caixas.remove(c);
+                }
                 break;
             }
         }
@@ -192,7 +198,7 @@ public class Jogo {
             if (d.getPosicaoX() != jogador.getPosicaoX() + direcao.dx ||
                     d.getPosicaoY() != jogador.getPosicaoY() + direcao.dy) continue;
 
-            ResultadoCombate res = processarResultadoCombate(d);
+            ResultadoCombate res = processarResultadoCombate(d, false);
             if (res == ResultadoCombate.VENCEU) {
                 tabuleiro.atualizar(jogador, dinossauros, caixas);
                 sistemaMovimento.moverJogador(jogador, direcao);
@@ -201,9 +207,23 @@ public class Jogo {
         }
     }
 
-    private ResultadoCombate processarResultadoCombate(Dinossauro d) {
-        ResultadoCombate res = sistemaCombate.combate(jogador, d, menu, leitorDeInput, tabuleiro);
+    private ResultadoCombate processarResultadoCombate(Dinossauro d, boolean dinoAtacouPrimeiro) {
+        if (dinoAtacouPrimeiro) {
+            boolean desviou = sistemaCombate.passouTestePercepcao(jogador);
+            if (!desviou) {
+                jogador.setSaude(jogador.getSaude() - d.getDanoAtaque());
+                System.out.println("O dinossauro te atacou! -" + d.getDanoAtaque() + " de saúde.");
+                if (jogador.getSaude() <= 0) {
+                    menu.mensagemDerrota();
+                    sairDoJogo();
+                    return ResultadoCombate.PERDEU;
+                }
+            } else {
+                System.out.println("Você desviou do ataque inicial!");
+            }
+        }
 
+        ResultadoCombate res = sistemaCombate.combate(jogador, d, menu, leitorDeInput, tabuleiro);
         if (res == ResultadoCombate.PERDEU) {
             menu.mensagemDerrota();
             sairDoJogo();
@@ -220,7 +240,7 @@ public class Jogo {
 
             if (encontrouJogador) {
                 menu.avisoDinossauroEncontrou(d);
-                processarResultadoCombate(d);
+                processarResultadoCombate(d, true);
                 if (estado != EstadoJogo.CONTINUAR) return;
             }
 

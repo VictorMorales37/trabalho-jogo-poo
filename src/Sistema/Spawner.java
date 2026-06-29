@@ -25,35 +25,56 @@ public class Spawner {
         return j;
     }
 
-    private Dinossauro spawnDinossauro(Tabuleiro t, TipoDinossauro tipo) {
+    private Dinossauro spawnDinossauro(Tabuleiro t, TipoDinossauro tipo, Jogador jogador) {
         Dinossauro d = switch (tipo) {
             case COMPSOGNATO -> new Compsognato();
-            case TROODONTE   -> new Troodonte();
+            case TROODONTE -> new Troodonte();
             case VELOCIRAPTOR -> new Velociraptor();
-            case TREX        -> new TiranossauroRex();
+            case TREX -> new TiranossauroRex();
         };
 
-        while (!t.verificarPosicao(d.getPosicaoX(), d.getPosicaoY())) {
-            d.setPosicaoX(random.nextInt(Macros.TAMANHO_TABULEIRO));
-            d.setPosicaoY(random.nextInt(Macros.TAMANHO_TABULEIRO));
+        if (tipo == TipoDinossauro.TREX) {
+
+            int metade = Macros.TAMANHO_TABULEIRO / 2;
+
+            int minX = jogador.getPosicaoX() < metade ? metade : 0;
+            int maxX = jogador.getPosicaoX() < metade
+                    ? Macros.TAMANHO_TABULEIRO
+                    : metade;
+
+            int minY = jogador.getPosicaoY() < metade ? metade : 0;
+            int maxY = jogador.getPosicaoY() < metade
+                    ? Macros.TAMANHO_TABULEIRO
+                    : metade;
+
+            do {
+                d.setPosicaoX(random.nextInt(minX, maxX));
+                d.setPosicaoY(random.nextInt(minY, maxY));
+            } while (!t.verificarPosicao(d.getPosicaoX(), d.getPosicaoY()));
+        }
+        else {
+            do {
+                d.setPosicaoX(random.nextInt(Macros.TAMANHO_TABULEIRO));
+                d.setPosicaoY(random.nextInt(Macros.TAMANHO_TABULEIRO));
+            } while (!t.verificarPosicao(d.getPosicaoX(), d.getPosicaoY()));
         }
 
         t.setPosicoesOcupadas(d.getPosicaoX(), d.getPosicaoY());
         return d;
     }
 
-    public void spawnDinossauros(Tabuleiro t, ArrayList<Dinossauro> dinos) {
+    public void spawnDinossauros(Tabuleiro t, ArrayList<Dinossauro> dinos, Jogador jogador) {
         for (int i = 0; i < Macros.NUM_COMPSOGNATO; i++) {
-            dinos.add(spawnDinossauro(t, TipoDinossauro.COMPSOGNATO));
+            dinos.add(spawnDinossauro(t, TipoDinossauro.COMPSOGNATO, jogador));
         }
         for (int i = 0; i < Macros.NUM_TROODONTE; i++) {
-            dinos.add(spawnDinossauro(t, TipoDinossauro.TROODONTE));
+            dinos.add(spawnDinossauro(t, TipoDinossauro.TROODONTE, jogador));
         }
         for (int i = 0; i < Macros.NUM_VELOCIRAPTOR; i++) {
-            dinos.add(spawnDinossauro(t, TipoDinossauro.VELOCIRAPTOR));
+            dinos.add(spawnDinossauro(t, TipoDinossauro.VELOCIRAPTOR, jogador));
         }
         for (int i = 0; i < Macros.NUM_TREX; i++) {
-            dinos.add(spawnDinossauro(t, TipoDinossauro.TREX));
+            dinos.add(spawnDinossauro(t, TipoDinossauro.TREX, jogador));
         }
     }
 

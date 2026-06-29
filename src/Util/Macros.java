@@ -1,7 +1,7 @@
 package Util;
 
 public class Macros {
-    public static final int TAMANHO_TABULEIRO = 20;
+    public static final int TAMANHO_TABULEIRO = 10;
     public static final int PERCEPCAO_INICIAL = 0;
     public static final int SAUDE_JOGADOR = 5;
     public static final char SIMB_JOGADOR = 'P';

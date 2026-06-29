@@ -34,7 +34,7 @@
 
 ### Regras Especiais
 
-* [ ] O T-Rex deve surgir na extremidade oposta ao jogador.
+* [x] O T-Rex deve surgir na extremidade oposta ao jogador.
 * [x] Opção "Sair" encerra o programa.
 
 ---
@@ -49,8 +49,8 @@
 
 ### Sistema de Visão
 
-* [ ] O jogador enxerga horizontalmente.
-* [ ] O jogador enxerga verticalmente.
+* [x] O jogador enxerga horizontalmente.
+* [x] O jogador enxerga verticalmente.
 
 ### Menu Durante o Jogo
 
@@ -67,8 +67,8 @@
 
 ### Modo DEBUG
 
-* [ ] Revelar todas as posições do mapa.
-* [ ] Mostrar todos os inimigos.
+* [x] Revelar todas as posições do mapa.
+* [x] Mostrar todos os inimigos.
 
 ### Opção Sair
 
@@ -96,10 +96,9 @@
 
 ### Velociraptor
 
-* [ ] Move até duas posições.
-* [ ] Pode parar na primeira posição.
-* [ ] Inicia combate ao encontrar o jogador.
-
+* [x] Move até duas posições.
+* [x] Pode parar na primeira posição.
+* [x] Inicia combate ao encontrar o jogador.
 ---
 
 ## Combate
@@ -120,14 +119,14 @@
 
 ### Ataque Surpresa
 
-* [ ] Se um dinossauro encontrar o jogador:
-* [ ] O dinossauro ataca primeiro.
+* [x] Se um dinossauro encontrar o jogador:
+* [x] O dinossauro ataca primeiro.
 
 ---
 
 ## Caixas de Suprimentos
 
-* [ ] Permitir caixa e dinossauro na mesma posição.
+* [x] Permitir caixa e dinossauro na mesma posição.
 * [x] Abrir a caixa ao interagir.
 * [x] Aplicar o item obtido.
 
